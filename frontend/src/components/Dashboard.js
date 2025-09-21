@@ -347,7 +347,7 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
         <div className="dashboard-header">
           <div className="dashboard-title-section">
             <Link to="/home" className="home-btn" title="Inicio">
-              🏠
+              <HomeIcon size="base" />
             </Link>
             <h1>Panel de Control</h1>
           </div>
@@ -362,24 +362,28 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
             className={`dashboard-tab ${activeTab === 'overview' ? 'active' : ''}`}
             onClick={() => setActiveTab('overview')}
           >
+            <ChartBarIcon size="sm" />
             Resumen
           </button>
           <button 
             className={`dashboard-tab ${activeTab === 'deposits' ? 'active' : ''}`}
             onClick={() => setActiveTab('deposits')}
           >
+            <WalletIcon size="sm" />
             Depósitos
           </button>
           <button 
             className={`dashboard-tab ${activeTab === 'withdrawals' ? 'active' : ''}`}
             onClick={() => setActiveTab('withdrawals')}
           >
+            <BankNotesIcon size="sm" />
             Retiros
           </button>
           <button 
             className={`dashboard-tab ${activeTab === 'history' ? 'active' : ''}`}
             onClick={() => setActiveTab('history')}
           >
+            <ClockIcon size="sm" />
             Historial
           </button>
           {user && user.is_admin && (
@@ -387,7 +391,8 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
               className={`dashboard-tab ${activeTab === 'admin' ? 'active' : ''}`}
               onClick={() => setActiveTab('admin')}
             >
-              🛠️ Administración
+              <CogIcon size="sm" />
+              Administración
             </button>
           )}
         </div>
