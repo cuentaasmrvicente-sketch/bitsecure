@@ -628,9 +628,11 @@ p {
 
 .section-subtitle {
   text-align: center;
-  color: var(--color-text-secondary);
+  color: var(--color-gray-600);
   margin-bottom: var(--space-48);
   font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
 }
 
 .trading-grid {
