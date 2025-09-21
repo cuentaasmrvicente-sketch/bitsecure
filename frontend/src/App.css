@@ -2160,3 +2160,283 @@ p {
     gap: var(--space-8);
   }
 }
+
+/* Welcome Actions Enhancement */
+.welcome-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-32);
+}
+
+.control-panel-access {
+  display: flex;
+  align-items: center;
+}
+
+.btn-control-panel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-white);
+  padding: var(--space-20) var(--space-24);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.btn-control-panel:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  color: var(--color-white);
+}
+
+.control-panel-icon {
+  font-size: var(--font-size-3xl);
+}
+
+.control-panel-text {
+  text-align: left;
+}
+
+.control-panel-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-2);
+}
+
+.control-panel-subtitle {
+  font-size: var(--font-size-sm);
+  opacity: 0.9;
+}
+
+/* Security and Trust Elements */
+.section-header-with-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-24);
+  padding-bottom: var(--space-16);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.section-header-with-info h2 {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.security-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  background-color: var(--color-success);
+  color: var(--color-white);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.security-info-card {
+  background: linear-gradient(135deg, rgba(var(--color-success-rgb), 0.05), rgba(var(--color-primary-rgb), 0.05));
+  border: 1px solid rgba(var(--color-success-rgb), 0.1);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  margin-bottom: var(--space-32);
+}
+
+.security-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-16);
+}
+
+.security-feature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+}
+
+.feature-icon {
+  font-size: var(--font-size-lg);
+}
+
+/* Enhanced Deposit/Withdrawal Cards */
+.deposit-card,
+.withdrawal-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-fast) var(--ease-standard);
+  position: relative;
+  overflow: hidden;
+}
+
+.deposit-card::before,
+.withdrawal-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-success));
+}
+
+.deposit-card:hover,
+.withdrawal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+}
+
+.deposit-card-header,
+.withdrawal-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-20);
+  padding-bottom: var(--space-16);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.deposit-card-header h3,
+.withdrawal-card-header h3 {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.trust-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-4);
+}
+
+.trust-stars {
+  font-size: var(--font-size-sm);
+}
+
+.trust-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-success);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.deposit-benefits,
+.withdrawal-benefits {
+  background-color: var(--color-background);
+  border-radius: var(--radius-base);
+  padding: var(--space-16);
+  margin-bottom: var(--space-20);
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin-bottom: var(--space-8);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+
+.benefit-item:last-child {
+  margin-bottom: 0;
+}
+
+.benefit-icon {
+  font-size: var(--font-size-base);
+}
+
+.security-note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  background-color: rgba(var(--color-info-rgb), 0.05);
+  border: 1px solid rgba(var(--color-info-rgb), 0.1);
+  border-radius: var(--radius-sm);
+  padding: var(--space-8) var(--space-12);
+  margin-top: var(--space-8);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.security-icon {
+  font-size: var(--font-size-sm);
+}
+
+.amount-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.info-icon {
+  font-size: var(--font-size-sm);
+}
+
+.security-reminder {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  background-color: rgba(var(--color-success-rgb), 0.05);
+  border: 1px solid rgba(var(--color-success-rgb), 0.1);
+  border-radius: var(--radius-sm);
+  padding: var(--space-12);
+  margin-top: var(--space-12);
+  font-size: var(--font-size-sm);
+  color: var(--color-success);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .welcome-actions {
+    flex-direction: column;
+    gap: var(--space-16);
+    width: 100%;
+  }
+
+  .control-panel-access {
+    width: 100%;
+  }
+
+  .btn-control-panel {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .section-header-with-info {
+    flex-direction: column;
+    gap: var(--space-12);
+    text-align: center;
+  }
+
+  .security-features {
+    grid-template-columns: 1fr;
+  }
+
+  .deposit-card-header,
+  .withdrawal-card-header {
+    flex-direction: column;
+    gap: var(--space-12);
+    text-align: center;
+  }
+
+  .trust-indicator {
+    align-items: center;
+  }
+}
