@@ -583,6 +583,58 @@ async def get_all_transactions(current_user: UserResponse = Depends(get_admin_us
     transactions = await db.transactions.find({}).sort("created_at", -1).to_list(100)
     return [Transaction(**t) for t in transactions]
 
+# Message endpoints
+@api_router.post("/admin/messages")
+async def send_message(message_data: MessageCreate, current_user: UserResponse = Depends(get_admin_user)):
+    # Verify target user exists
+    target_user = await db.users.find_one({"id": message_data.to_user_id})
+    if not target_user:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    
+    message = Message(
+        to_user_id=message_data.to_user_id,
+        subject=message_data.subject,
+        content=message_data.content
+    )
+    
+    await db.messages.insert_one(message.dict())
+    
+    # Create notification for the user
+    await create_notification(
+        title="Nuevo Mensaje del Administrador",
+        message=f"Tienes un nuevo mensaje: {message_data.subject}",
+        notification_type="admin_message",
+        user_id=message_data.to_user_id,
+        data={
+            "message_id": message.id,
+            "subject": message_data.subject
+        }
+    )
+    
+    return {"message": "Mensaje enviado exitosamente", "message_id": message.id}
+
+@api_router.get("/messages", response_model=List[Message])
+async def get_user_messages(current_user: UserResponse = Depends(get_current_user)):
+    messages = await db.messages.find({"to_user_id": current_user.id}).sort("created_at", -1).to_list(50)
+    return [Message(**m) for m in messages]
+
+@api_router.put("/messages/{message_id}/read")
+async def mark_message_read(message_id: str, current_user: UserResponse = Depends(get_current_user)):
+    result = await db.messages.update_one(
+        {"id": message_id, "to_user_id": current_user.id},
+        {"$set": {"read": True}}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Mensaje no encontrado")
+    
+    return {"message": "Mensaje marcado como leído"}
+
+@api_router.get("/admin/messages", response_model=List[Message])
+async def get_all_messages(current_user: UserResponse = Depends(get_admin_user)):
+    messages = await db.messages.find({}).sort("created_at", -1).to_list(100)
+    return [Message(**m) for m in messages]
+
 @api_router.get("/wallet-addresses")
 async def get_wallet_addresses():
     return WALLET_ADDRESSES
