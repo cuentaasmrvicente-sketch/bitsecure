@@ -339,12 +339,14 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
           >
             Historial
           </button>
-          {user.is_admin && (
+          {console.log('🔍 DEBUG - Usuario:', user) || null}
+          {console.log('🔍 DEBUG - Es Admin:', user?.is_admin) || null}
+          {user && user.is_admin && (
             <button 
               className={`dashboard-tab ${activeTab === 'admin' ? 'active' : ''}`}
               onClick={() => setActiveTab('admin')}
             >
-              Administración
+              🛠️ Administración
             </button>
           )}
         </div>
