@@ -302,7 +302,12 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
     <div className="dashboard-page">
       <div className="container">
         <div className="dashboard-header">
-          <h1>Panel de Control</h1>
+          <div className="dashboard-title-section">
+            <Link to="/home" className="home-btn" title="Inicio">
+              🏠
+            </Link>
+            <h1>Panel de Control</h1>
+          </div>
           <div className="balance-card">
             <h3>Balance Actual</h3>
             <div className="balance-amount">{formatBalance(user.balance)}</div>
