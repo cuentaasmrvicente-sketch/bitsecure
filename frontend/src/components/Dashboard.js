@@ -394,10 +394,10 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
 
           {/* Deposits Tab */}
           <div className={`dashboard-section ${activeTab === 'deposits' ? 'active' : ''}`}>
-            <h2>Depósitos</h2>
+            <h2>💰 Depósitos</h2>
             <div className="deposit-options">
               <div className="deposit-card">
-                <h3>Depósito desde Billetera</h3>
+                <h3>💎 Depósito desde Billetera</h3>
                 <form onSubmit={handleCryptoDeposit}>
                   <div className="form-group">
                     <label className="form-label">Criptomoneda</label>
@@ -408,23 +408,12 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                       required
                     >
                       <option value="">Seleccionar criptomoneda</option>
-                      <option value="BTC">Bitcoin (BTC)</option>
-                      <option value="ETH">Ethereum (ETH)</option>
-                      <option value="USDT">Tether (USDT)</option>
-                      <option value="BNB">Binance Coin (BNB)</option>
-                      <option value="ADA">Cardano (ADA)</option>
+                      <option value="BTC">₿ Bitcoin (BTC)</option>
+                      <option value="ETH">Ξ Ethereum (ETH)</option>
+                      <option value="USDT">₮ Tether (USDT)</option>
+                      <option value="BNB">🔸 Binance Coin (BNB)</option>
+                      <option value="ADA">₳ Cardano (ADA)</option>
                     </select>
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Tu Dirección de Billetera</label>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      placeholder="Ingresa la dirección de tu billetera"
-                      value={depositForm.wallet_address}
-                      onChange={(e) => setDepositForm({...depositForm, wallet_address: e.target.value})}
-                      required 
-                    />
                   </div>
                   <div className="form-group">
                     <label className="form-label">Cantidad (€)</label>
@@ -433,6 +422,7 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                       className="form-control" 
                       min="10" 
                       step="0.01"
+                      placeholder="Ej: 100.00"
                       value={depositForm.amount}
                       onChange={(e) => setDepositForm({...depositForm, amount: e.target.value})}
                       required 
@@ -440,28 +430,37 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                   </div>
                   {depositForm.crypto && walletAddresses[depositForm.crypto] && (
                     <div className="form-group">
-                      <label className="form-label">Enviar a esta dirección:</label>
-                      <div style={{
-                        padding: '12px',
-                        backgroundColor: 'var(--color-surface)',
-                        border: '1px solid var(--color-border)',
-                        borderRadius: 'var(--radius-base)',
-                        fontFamily: 'monospace',
-                        fontSize: '12px',
-                        wordBreak: 'break-all'
-                      }}>
-                        {walletAddresses[depositForm.crypto]}
+                      <label className="form-label">📋 Enviar a esta dirección:</label>
+                      <div className="wallet-address-display">
+                        <div className="wallet-address">
+                          {walletAddresses[depositForm.crypto]}
+                        </div>
+                        <button 
+                          type="button"
+                          className="copy-btn"
+                          onClick={() => copyToClipboard(walletAddresses[depositForm.crypto])}
+                        >
+                          📋 Copiar
+                        </button>
+                      </div>
+                      <div className="deposit-instructions">
+                        <p><strong>⚠️ Importante:</strong></p>
+                        <ul>
+                          <li>Envía exactamente €{depositForm.amount} a esta dirección</li>
+                          <li>El administrador aprobará tu depósito</li>
+                          <li>Recibirás una notificación cuando sea procesado</li>
+                        </ul>
                       </div>
                     </div>
                   )}
                   <button type="submit" className="btn btn-primary" disabled={loading}>
-                    {loading ? 'Procesando...' : 'Realizar Depósito'}
+                    {loading ? 'Enviando...' : '💸 Enviar Solicitud'}
                   </button>
                 </form>
               </div>
 
               <div className="deposit-card">
-                <h3>Depósito con CryptoVoucher</h3>
+                <h3>🎫 Depósito con CryptoVoucher</h3>
                 <form onSubmit={handleVoucherDeposit}>
                   <div className="form-group">
                     <label className="form-label">Código de Voucher</label>
@@ -474,8 +473,24 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                       required 
                     />
                   </div>
+                  <div className="form-group">
+                    <label className="form-label">Cantidad del Voucher (€)</label>
+                    <input 
+                      type="number" 
+                      className="form-control" 
+                      min="10" 
+                      step="0.01"
+                      placeholder="Ej: 50.00"
+                      value={voucherForm.amount}
+                      onChange={(e) => setVoucherForm({...voucherForm, amount: e.target.value})}
+                      required 
+                    />
+                  </div>
+                  <div className="voucher-info">
+                    <p>ℹ️ El administrador validará tu voucher y procesará el depósito</p>
+                  </div>
                   <button type="submit" className="btn btn-primary" disabled={loading}>
-                    {loading ? 'Canjeando...' : 'Canjear Voucher'}
+                    {loading ? 'Enviando...' : '🎫 Enviar Voucher'}
                   </button>
                 </form>
               </div>
