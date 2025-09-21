@@ -236,77 +236,66 @@ async def crypto_deposit(deposit_data: DepositRequest, current_user: UserRespons
     # Get the correct wallet address for the crypto
     admin_wallet = WALLET_ADDRESSES[deposit_data.crypto]
     
-    # Create transaction
+    # Create transaction as pending - admin will approve it
     transaction = Transaction(
         user_id=current_user.id,
         type="deposit",
         method=f"Crypto ({deposit_data.crypto})",
         amount=deposit_data.amount,
-        details=f"Usuario: {deposit_data.wallet_address[:10]}... → Admin: {admin_wallet[:10]}...",
-        status="completed"
+        details=f"Enviado a: {admin_wallet}",
+        status="pending"
     )
     
     await db.transactions.insert_one(transaction.dict())
     
-    # Update user balance
-    await db.users.update_one(
-        {"id": current_user.id},
-        {"$inc": {"balance": deposit_data.amount}}
-    )
-    
-    # Create notification for admin
+    # Create notification for admin - DO NOT UPDATE USER BALANCE YET
     await create_notification(
-        title="Nuevo Depósito",
-        message=f"{current_user.name} ha depositado €{deposit_data.amount} via {deposit_data.crypto}",
+        title="Nueva Solicitud de Depósito",
+        message=f"{current_user.name} solicita depositar €{deposit_data.amount} via {deposit_data.crypto}",
         notification_type="deposit",
         user_id=current_user.id,
         data={
             "amount": deposit_data.amount,
             "crypto": deposit_data.crypto,
-            "user_wallet": deposit_data.wallet_address,
             "admin_wallet": admin_wallet,
-            "transaction_id": transaction.id
+            "transaction_id": transaction.id,
+            "user_name": current_user.name,
+            "user_email": current_user.email
         }
     )
     
-    return {"message": "Depósito procesado exitosamente", "transaction_id": transaction.id, "admin_wallet": admin_wallet}
+    return {"message": "Solicitud de depósito enviada al administrador", "transaction_id": transaction.id, "admin_wallet": admin_wallet}
 
 @api_router.post("/deposits/voucher")
 async def voucher_deposit(voucher_data: VoucherRequest, current_user: UserResponse = Depends(get_current_user)):
-    # Simulate random voucher amount
-    amount = random.randint(50, 550)
-    
+    # Create transaction as pending - admin will validate voucher
     transaction = Transaction(
         user_id=current_user.id,
         type="deposit",
         method="CryptoVoucher",
-        amount=amount,
+        amount=voucher_data.amount,
         details=f"Código: {voucher_data.voucher_code}",
-        status="completed"
+        status="pending"
     )
     
     await db.transactions.insert_one(transaction.dict())
     
-    # Update user balance
-    await db.users.update_one(
-        {"id": current_user.id},
-        {"$inc": {"balance": amount}}
-    )
-    
-    # Create notification for admin
+    # Create notification for admin - DO NOT UPDATE BALANCE YET
     await create_notification(
-        title="Voucher Canjeado",
-        message=f"{current_user.name} ha canjeado un voucher por €{amount}",
+        title="Nuevo Voucher para Validar",
+        message=f"{current_user.name} quiere canjear un voucher por €{voucher_data.amount}",
         notification_type="deposit",
         user_id=current_user.id,
         data={
-            "amount": amount,
+            "amount": voucher_data.amount,
             "voucher_code": voucher_data.voucher_code,
-            "transaction_id": transaction.id
+            "transaction_id": transaction.id,
+            "user_name": current_user.name,
+            "user_email": current_user.email
         }
     )
     
-    return {"message": f"Voucher canjeado: €{amount} añadido", "amount": amount}
+    return {"message": f"Voucher enviado para validación: €{voucher_data.amount}", "transaction_id": transaction.id}
 
 # Withdrawal routes
 @api_router.post("/withdrawals")
