@@ -91,11 +91,11 @@ class Transaction(BaseModel):
 
 class DepositRequest(BaseModel):
     crypto: str
-    wallet_address: str
     amount: float
 
 class VoucherRequest(BaseModel):
     voucher_code: str
+    amount: float
 
 class WithdrawalRequest(BaseModel):
     method: str  # paypal, bank, bizum
