@@ -967,6 +967,34 @@ p {
   margin-bottom: var(--space-32);
 }
 
+.dashboard-title-section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.home-btn {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-full);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xl);
+  text-decoration: none;
+  transition: all var(--duration-fast) var(--ease-standard);
+  box-shadow: var(--shadow-sm);
+}
+
+.home-btn:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
 .dashboard-header h1 {
   margin: 0;
   color: var(--color-text);
