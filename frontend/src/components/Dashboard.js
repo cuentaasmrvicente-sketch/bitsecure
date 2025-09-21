@@ -314,6 +314,21 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
           </div>
         </div>
 
+        {/* DEBUG INFO - TEMPORAL */}
+        <div style={{
+          background: 'red', 
+          color: 'white', 
+          padding: '16px', 
+          margin: '16px 0', 
+          borderRadius: '8px',
+          fontFamily: 'monospace'
+        }}>
+          <strong>🔍 DEBUG INFO:</strong><br/>
+          Usuario: {JSON.stringify(user, null, 2)}<br/>
+          is_admin: {String(user?.is_admin)}<br/>
+          Tipo de is_admin: {typeof user?.is_admin}
+        </div>
+
         <div className="dashboard-nav">
           <button 
             className={`dashboard-tab ${activeTab === 'overview' ? 'active' : ''}`}
@@ -339,16 +354,15 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
           >
             Historial
           </button>
-          {console.log('🔍 DEBUG - Usuario:', user) || null}
-          {console.log('🔍 DEBUG - Es Admin:', user?.is_admin) || null}
-          {user && user.is_admin && (
-            <button 
-              className={`dashboard-tab ${activeTab === 'admin' ? 'active' : ''}`}
-              onClick={() => setActiveTab('admin')}
-            >
-              🛠️ Administración
-            </button>
-          )}
+          
+          {/* FORZAR MOSTRAR TAB ADMIN PARA DEBUG */}
+          <button 
+            className={`dashboard-tab ${activeTab === 'admin' ? 'active' : ''}`}
+            onClick={() => setActiveTab('admin')}
+            style={{backgroundColor: 'orange', color: 'black'}}
+          >
+            🛠️ Administración [FORZADO]
+          </button>
         </div>
 
         <div className="dashboard-content">
