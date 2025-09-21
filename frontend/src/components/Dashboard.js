@@ -377,42 +377,98 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
         <div className="dashboard-content">
           {/* Overview Tab */}
           <div className={`dashboard-section ${activeTab === 'overview' ? 'active' : ''}`}>
-            <div className="trading-section">
-              <h2>Trading en Vivo</h2>
-              <div className="trading-grid">
+            <div className="overview-welcome">
+              <div className="welcome-message">
+                <h2>🚀 ¡Bienvenido de vuelta, {user.name}!</h2>
+                <p>Tu centro de comando para trading profesional</p>
+              </div>
+              <div className="quick-stats">
+                <div className="stat-mini">
+                  <div className="stat-icon">💰</div>
+                  <div className="stat-content">
+                    <div className="stat-label">Balance</div>
+                    <div className="stat-value">{formatBalance(user.balance)}</div>
+                  </div>
+                </div>
+                <div className="stat-mini">
+                  <div className="stat-icon">📊</div>
+                  <div className="stat-content">
+                    <div className="stat-label">Estado</div>
+                    <div className="stat-value">🟢 Activo</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="trading-section-enhanced">
+              <div className="section-header">
+                <h2>⚡ Trading en Tiempo Real</h2>
+                <div className="live-indicator">
+                  <span className="pulse-dot"></span>
+                  EN VIVO
+                </div>
+              </div>
+              
+              <div className="trading-grid-enhanced">
                 {tradingData.map((pair, index) => (
-                  <div key={index} className="trading-card">
-                    <div className="trading-pair">{pair.pair}</div>
-                    <div className="trading-stats">
-                      <div className="trading-stat">
-                        <div className="trading-stat-label">Cambio</div>
-                        <div className={`trading-stat-value trading-change ${pair.change >= 0 ? 'positive' : 'negative'}`}>
-                          {pair.change >= 0 ? '+' : ''}{pair.change.toFixed(2)}%
+                  <div key={index} className="trading-card-enhanced">
+                    <div className="trading-card-header">
+                      <div className="trading-pair-enhanced">{pair.pair}</div>
+                      <div className="trading-status-live">🟢 ACTIVO</div>
+                    </div>
+                    
+                    <div className="trading-value-main">
+                      €{pair.value.toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                    </div>
+                    
+                    <div className="trading-stats-enhanced">
+                      <div className="trading-stat-item">
+                        <div className="stat-icon-small">📈</div>
+                        <div className="stat-details">
+                          <div className="stat-label-small">Cambio 24h</div>
+                          <div className={`stat-value-small ${pair.change >= 0 ? 'positive' : 'negative'}`}>
+                            {pair.change >= 0 ? '+' : ''}{pair.change.toFixed(2)}%
+                          </div>
                         </div>
                       </div>
-                      <div className="trading-stat">
-                        <div className="trading-stat-label">Dirección</div>
-                        <div className="trading-stat-value">
-                          <span className={`trading-direction ${pair.direction.toLowerCase()}`}>
+                      
+                      <div className="trading-stat-item">
+                        <div className="stat-icon-small">
+                          {pair.direction === 'LONG' ? '🚀' : '🔻'}
+                        </div>
+                        <div className="stat-details">
+                          <div className="stat-label-small">Dirección</div>
+                          <div className={`stat-value-small ${pair.direction.toLowerCase()}`}>
                             {pair.direction}
-                          </span>
+                          </div>
                         </div>
                       </div>
-                      <div className="trading-stat">
-                        <div className="trading-stat-label">Apalancamiento</div>
-                        <div className="trading-stat-value">
-                          <span className="trading-leverage">{pair.leverage}</span>
+                      
+                      <div className="trading-stat-item">
+                        <div className="stat-icon-small">⚡</div>
+                        <div className="stat-details">
+                          <div className="stat-label-small">Apalancamiento</div>
+                          <div className="stat-value-small">
+                            <span className="leverage-badge">{pair.leverage}</span>
+                          </div>
                         </div>
                       </div>
-                      <div className="trading-stat">
-                        <div className="trading-stat-label">Valor</div>
-                        <div className="trading-stat-value trading-value">
-                          €{pair.value.toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                        </div>
+                    </div>
+                    
+                    <div className="trading-card-footer">
+                      <div className="trend-indicator">
+                        {pair.change >= 0 ? '📈 Tendencia alcista' : '📉 Tendencia bajista'}
                       </div>
                     </div>
                   </div>
                 ))}
+              </div>
+              
+              <div className="trading-footer">
+                <div className="market-status">
+                  <span className="market-icon">🌍</span>
+                  <span>Mercados globales • Actualización cada 4 segundos</span>
+                </div>
               </div>
             </div>
           </div>
