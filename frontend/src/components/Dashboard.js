@@ -1,6 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { 
+  HomeIcon, 
+  ChartBarIcon, 
+  WalletIcon, 
+  BankNotesIcon, 
+  ClockIcon, 
+  CogIcon, 
+  ShieldIcon, 
+  CheckCircleIcon, 
+  BoltIcon,
+  UsersIcon,
+  BellIcon,
+  ChatBubbleIcon,
+  TicketIcon,
+  TrendUpIcon,
+  TrendDownIcon,
+  DocumentTextIcon
+} from './Icons';
 
 const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
   const [searchParams] = useSearchParams();
