@@ -831,7 +831,7 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                   </div>
                   <div className="security-note">
                     <span className="security-icon">🛡️</span>
-                    <span>Verificación adicional para transferencias > €1000</span>
+                    <span>Verificación adicional para transferencias mayores a €1000</span>
                   </div>
                   <button type="submit" className="btn btn-primary" disabled={loading}>
                     {loading ? 'Procesando...' : '🏦 Solicitar Transferencia'}
