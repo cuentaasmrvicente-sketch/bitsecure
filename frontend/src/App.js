@@ -6,6 +6,7 @@ import './App.css';
 // Import components
 import LandingPage from './components/LandingPage';
 import AuthPage from './components/AuthPage';
+import HomePage from './components/HomePage';
 import Dashboard from './components/Dashboard';
 import Header from './components/Header';
 import Toast from './components/Toast';
