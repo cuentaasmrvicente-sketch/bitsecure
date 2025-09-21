@@ -103,15 +103,17 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
 
   const loadAdminData = async () => {
     try {
-      const [statsResponse, usersResponse, notificationsResponse] = await Promise.all([
+      const [statsResponse, usersResponse, notificationsResponse, allTransactionsResponse] = await Promise.all([
         axios.get(`${API}/admin/stats`, { headers: getAuthHeaders() }),
         axios.get(`${API}/admin/users`, { headers: getAuthHeaders() }),
-        axios.get(`${API}/admin/notifications`, { headers: getAuthHeaders() })
+        axios.get(`${API}/admin/notifications`, { headers: getAuthHeaders() }),
+        axios.get(`${API}/admin/transactions`, { headers: getAuthHeaders() })
       ]);
 
       setAdminStats(statsResponse.data);
       setAllUsers(usersResponse.data);
       setNotifications(notificationsResponse.data);
+      setAllTransactions(allTransactionsResponse.data);
     } catch (error) {
       console.error('Error loading admin data:', error);
     }
