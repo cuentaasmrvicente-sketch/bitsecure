@@ -121,13 +121,13 @@ function App() {
           <Route 
             path="/" 
             element={
-              user ? <Navigate to="/home" /> : <LandingPage />
+              user ? <Navigate to={user.is_admin ? "/dashboard" : "/home"} /> : <LandingPage />
             } 
           />
           <Route 
             path="/auth" 
             element={
-              user ? <Navigate to="/home" /> : 
+              user ? <Navigate to={user.is_admin ? "/dashboard" : "/home"} /> : 
               <AuthPage login={login} register={register} />
             } 
           />
