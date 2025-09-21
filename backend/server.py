@@ -538,6 +538,37 @@ async def mark_notification_read(notification_id: str, current_user: UserRespons
     
     return {"message": "Notificación marcada como leída"}
 
+@api_router.put("/admin/users/{user_id}/balance")
+async def update_user_balance(user_id: str, new_balance: float, current_user: UserResponse = Depends(get_admin_user)):
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$set": {"balance": new_balance}}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    
+    user = await db.users.find_one({"id": user_id})
+    
+    # Create notification
+    await create_notification(
+        title="Balance Actualizado",
+        message=f"El admin ha actualizado el balance de {user['name']} a €{new_balance}",
+        notification_type="balance_update",
+        user_id=user_id,
+        data={
+            "new_balance": new_balance,
+            "user_name": user["name"]
+        }
+    )
+    
+    return {"message": "Balance actualizado exitosamente"}
+
+@api_router.get("/admin/transactions", response_model=List[Transaction])
+async def get_all_transactions(current_user: UserResponse = Depends(get_admin_user)):
+    transactions = await db.transactions.find({}).sort("created_at", -1).to_list(100)
+    return [Transaction(**t) for t in transactions]
+
 @api_router.get("/wallet-addresses")
 async def get_wallet_addresses():
     return WALLET_ADDRESSES
