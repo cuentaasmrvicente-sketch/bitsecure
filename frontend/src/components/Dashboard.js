@@ -264,6 +264,25 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
     }
   };
 
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      await axios.post(`${API}/admin/messages`, messageForm, {
+        headers: getAuthHeaders()
+      });
+
+      showToast('Mensaje enviado exitosamente', 'success');
+      setMessageForm({ to_user_id: '', subject: '', content: '' });
+    } catch (error) {
+      const errorMessage = error.response?.data?.detail || 'Error al enviar mensaje';
+      showToast(errorMessage, 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const copyToClipboard = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
