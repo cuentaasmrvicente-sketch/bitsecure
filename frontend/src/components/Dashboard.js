@@ -213,6 +213,23 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
     }
   };
 
+  const updateUserBalance = async (userId, newBalance) => {
+    try {
+      await axios.put(`${API}/admin/users/${userId}/balance?new_balance=${newBalance}`, {}, {
+        headers: getAuthHeaders()
+      });
+
+      showToast('Balance actualizado exitosamente', 'success');
+      await loadAdminData();
+      if (userId === user.id) {
+        await loadCurrentUser();
+      }
+    } catch (error) {
+      const errorMessage = error.response?.data?.detail || 'Error al actualizar balance';
+      showToast(errorMessage, 'error');
+    }
+  };
+
   const approveTransaction = async (transactionId) => {
     try {
       await axios.put(`${API}/admin/transactions/${transactionId}/approve`, {}, {
