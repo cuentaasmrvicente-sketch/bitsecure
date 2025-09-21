@@ -437,7 +437,7 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                   <div key={index} className="trading-card-enhanced">
                     <div className="trading-card-header">
                       <div className="trading-pair-enhanced">{pair.pair}</div>
-                      <div className="trading-status-live">🟢 ACTIVO</div>
+                      <div className="trading-status-live"><CheckCircleIcon size="xs" className="success" /> ACTIVO</div>
                     </div>
                     
                     <div className="trading-value-main">
@@ -446,7 +446,12 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                     
                     <div className="trading-stats-enhanced">
                       <div className="trading-stat-item">
-                        <div className="stat-icon-small">📈</div>
+                        <div className="stat-icon-small">
+                          {pair.change >= 0 ? 
+                            <TrendUpIcon className="success" /> : 
+                            <TrendDownIcon className="error" />
+                          }
+                        </div>
                         <div className="stat-details">
                           <div className="stat-label-small">Cambio 24h</div>
                           <div className={`stat-value-small ${pair.change >= 0 ? 'positive' : 'negative'}`}>
@@ -457,7 +462,10 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                       
                       <div className="trading-stat-item">
                         <div className="stat-icon-small">
-                          {pair.direction === 'LONG' ? '🚀' : '🔻'}
+                          {pair.direction === 'LONG' ? 
+                            <TrendUpIcon className="success" /> : 
+                            <TrendDownIcon className="error" />
+                          }
                         </div>
                         <div className="stat-details">
                           <div className="stat-label-small">Dirección</div>
@@ -468,7 +476,7 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                       </div>
                       
                       <div className="trading-stat-item">
-                        <div className="stat-icon-small">⚡</div>
+                        <div className="stat-icon-small"><BoltIcon /></div>
                         <div className="stat-details">
                           <div className="stat-label-small">Apalancamiento</div>
                           <div className="stat-value-small">
@@ -480,7 +488,10 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                     
                     <div className="trading-card-footer">
                       <div className="trend-indicator">
-                        {pair.change >= 0 ? '📈 Tendencia alcista' : '📉 Tendencia bajista'}
+                        {pair.change >= 0 ? 
+                          <><TrendUpIcon size="sm" className="success" /> Tendencia alcista</> : 
+                          <><TrendDownIcon size="sm" className="error" /> Tendencia bajista</>
+                        }
                       </div>
                     </div>
                   </div>
