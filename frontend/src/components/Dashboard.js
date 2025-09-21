@@ -693,29 +693,89 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
 
               {/* Notifications */}
               <div style={{marginBottom: '2rem'}}>
-                <h3>📬 Notificaciones Recientes</h3>
-                <div className="notifications-list">
-                  {notifications.slice(0, 10).map((notification) => (
-                    <div 
-                      key={notification.id} 
-                      className={`notification-item ${!notification.read ? 'unread' : ''}`}
-                      onClick={() => markNotificationRead(notification.id)}
-                      style={{cursor: 'pointer'}}
-                    >
-                      <div className="notification-header">
-                        <div className="notification-title">{notification.title}</div>
-                        <div className="notification-date">
-                          {formatDate(notification.created_at)}
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem'}}>
+                  <h3>📬 Notificaciones Recientes</h3>
+                  <button 
+                    className="btn btn-outline btn-sm"
+                    onClick={() => setNotificationsExpanded(!notificationsExpanded)}
+                  >
+                    {notificationsExpanded ? '📁 Plegar' : '📂 Expandir'}
+                  </button>
+                </div>
+                {notificationsExpanded && (
+                  <div className="notifications-list">
+                    {notifications.slice(0, 10).map((notification) => (
+                      <div 
+                        key={notification.id} 
+                        className={`notification-item ${!notification.read ? 'unread' : ''}`}
+                        onClick={() => markNotificationRead(notification.id)}
+                        style={{cursor: 'pointer'}}
+                      >
+                        <div className="notification-header">
+                          <div className="notification-title">{notification.title}</div>
+                          <div className="notification-date">
+                            {formatDate(notification.created_at)}
+                          </div>
                         </div>
+                        <div className="notification-message">{notification.message}</div>
+                        {notification.data && (
+                          <div className="notification-data">
+                            {JSON.stringify(notification.data, null, 2)}
+                          </div>
+                        )}
                       </div>
-                      <div className="notification-message">{notification.message}</div>
-                      {notification.data && (
-                        <div className="notification-data">
-                          {JSON.stringify(notification.data, null, 2)}
-                        </div>
-                      )}
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Send Message to User */}
+              <div style={{marginBottom: '2rem'}}>
+                <h3>💬 Enviar Mensaje a Usuario</h3>
+                <div className="card">
+                  <form onSubmit={sendMessage}>
+                    <div className="form-group">
+                      <label className="form-label">Usuario Destinatario</label>
+                      <select 
+                        className="form-control"
+                        value={messageForm.to_user_id}
+                        onChange={(e) => setMessageForm({...messageForm, to_user_id: e.target.value})}
+                        required
+                      >
+                        <option value="">Seleccionar usuario</option>
+                        {allUsers.filter(u => !u.is_admin).map(userData => (
+                          <option key={userData.id} value={userData.id}>
+                            {userData.name} ({userData.email})
+                          </option>
+                        ))}
+                      </select>
                     </div>
-                  ))}
+                    <div className="form-group">
+                      <label className="form-label">Asunto</label>
+                      <input 
+                        type="text"
+                        className="form-control"
+                        placeholder="Asunto del mensaje"
+                        value={messageForm.subject}
+                        onChange={(e) => setMessageForm({...messageForm, subject: e.target.value})}
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Mensaje</label>
+                      <textarea 
+                        className="form-control"
+                        rows="4"
+                        placeholder="Escribe tu mensaje aquí..."
+                        value={messageForm.content}
+                        onChange={(e) => setMessageForm({...messageForm, content: e.target.value})}
+                        required
+                      />
+                    </div>
+                    <button type="submit" className="btn btn-primary" disabled={loading}>
+                      {loading ? 'Enviando...' : '💬 Enviar Mensaje'}
+                    </button>
+                  </form>
                 </div>
               </div>
 
