@@ -1086,6 +1086,9 @@ p {
   transition: all var(--duration-fast) var(--ease-standard);
   font-size: var(--font-size-sm);
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
 }
 
 .dashboard-tab:hover {
@@ -1095,6 +1098,10 @@ p {
 .dashboard-tab.active {
   color: var(--color-primary);
   border-bottom-color: var(--color-primary);
+}
+
+.dashboard-tab.active .icon-wrapper {
+  color: var(--color-primary);
 }
 
 .dashboard-section {
