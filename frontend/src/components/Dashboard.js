@@ -668,7 +668,7 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
 
               {/* Notifications */}
               <div style={{marginBottom: '2rem'}}>
-                <h3>Notificaciones Recientes</h3>
+                <h3>📬 Notificaciones Recientes</h3>
                 <div className="notifications-list">
                   {notifications.slice(0, 10).map((notification) => (
                     <div 
@@ -691,6 +691,54 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                       )}
                     </div>
                   ))}
+                </div>
+              </div>
+
+              {/* Admin Transaction Management */}
+              <div className="admin-transactions">
+                <h3>⚡ Transacciones Pendientes</h3>
+                <div className="transactions-list">
+                  {allTransactions.filter(t => t.status === 'pending').length === 0 ? (
+                    <div style={{textAlign: 'center', color: 'var(--color-text-secondary)', padding: '2rem'}}>
+                      No hay transacciones pendientes
+                    </div>
+                  ) : (
+                    allTransactions.filter(t => t.status === 'pending').map((transaction) => (
+                      <div key={transaction.id} className="transaction-admin-item pending">
+                        <div className="transaction-info">
+                          <div className="transaction-type">
+                            🏦 {transaction.type === 'deposit' ? 'Depósito' : 'Retiro'} - {transaction.method}
+                          </div>
+                          <div className="transaction-method">
+                            Usuario: {allUsers.find(u => u.id === transaction.user_id)?.name || 'Desconocido'}
+                          </div>
+                          <div className="transaction-date">{formatDate(transaction.created_at)}</div>
+                          <div style={{color: 'var(--color-text-secondary)', fontSize: '12px'}}>
+                            {transaction.details}
+                          </div>
+                        </div>
+                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px'}}>
+                          <div className="transaction-amount deposit">
+                            €{transaction.amount.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          </div>
+                          <div className="transaction-admin-actions">
+                            <button 
+                              className="btn btn-approve btn-sm"
+                              onClick={() => approveTransaction(transaction.id)}
+                            >
+                              ✅ Aprobar
+                            </button>
+                            <button 
+                              className="btn btn-reject btn-sm"
+                              onClick={() => rejectTransaction(transaction.id)}
+                            >
+                              ❌ Rechazar
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
 
