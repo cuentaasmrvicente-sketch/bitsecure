@@ -58,7 +58,7 @@ class User(BaseModel):
     name: str
     email: EmailStr
     password_hash: str
-    balance: float = 100.0  # Starting bonus
+    balance: float = 0.0  # Users start with 0€, not 100€
     is_admin: bool = False
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
