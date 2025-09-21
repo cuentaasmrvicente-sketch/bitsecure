@@ -124,13 +124,15 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${API}/deposits/crypto`, depositForm, {
+      const response = await axios.post(`${API}/deposits/crypto`, {
+        crypto: depositForm.crypto,
+        amount: parseFloat(depositForm.amount)
+      }, {
         headers: getAuthHeaders()
       });
 
-      showToast(`Depósito procesado exitosamente. Envía tus fondos a: ${response.data.admin_wallet}`, 'success');
-      setDepositForm({ crypto: '', wallet_address: '', amount: '' });
-      await loadCurrentUser();
+      showToast(`Solicitud enviada al administrador. Envía tus fondos a: ${response.data.admin_wallet}`, 'success');
+      setDepositForm({ crypto: '', amount: '' });
       if (activeTab === 'history') {
         await loadTransactions();
       }
@@ -147,13 +149,15 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${API}/deposits/voucher`, voucherForm, {
+      const response = await axios.post(`${API}/deposits/voucher`, {
+        voucher_code: voucherForm.voucher_code,
+        amount: parseFloat(voucherForm.amount)
+      }, {
         headers: getAuthHeaders()
       });
 
       showToast(response.data.message, 'success');
-      setVoucherForm({ voucher_code: '' });
-      await loadCurrentUser();
+      setVoucherForm({ voucher_code: '', amount: '' });
       if (activeTab === 'history') {
         await loadTransactions();
       }
