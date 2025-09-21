@@ -176,6 +176,35 @@
   --container-xl: 1280px;
 }
 
+/* Icon Styling */
+.icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-icon);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.icon-wrapper:hover {
+  color: var(--color-icon-hover);
+}
+
+.icon-wrapper.success {
+  color: var(--color-icon-success);
+}
+
+.icon-wrapper.error {
+  color: var(--color-icon-error);
+}
+
+.icon-wrapper.warning {
+  color: var(--color-icon-warning);
+}
+
+.icon-wrapper.secondary {
+  color: var(--color-icon-secondary);
+}
+
 /* Dark mode colors */
 @media (prefers-color-scheme: dark) {
   :root {
