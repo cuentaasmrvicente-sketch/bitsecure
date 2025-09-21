@@ -389,31 +389,137 @@ async def get_all_users(current_user: UserResponse = Depends(get_admin_user)):
     users = await db.users.find({}).to_list(100)
     return [UserResponse(**u) for u in users]
 
-@api_router.put("/admin/users/{user_id}/balance")
-async def update_user_balance(user_id: str, new_balance: float, current_user: UserResponse = Depends(get_admin_user)):
-    result = await db.users.update_one(
-        {"id": user_id},
-        {"$set": {"balance": new_balance}}
+@api_router.put("/admin/transactions/{transaction_id}/approve")
+async def approve_transaction(transaction_id: str, current_user: UserResponse = Depends(get_admin_user)):
+    # Find the transaction
+    transaction = await db.transactions.find_one({"id": transaction_id})
+    if not transaction:
+        raise HTTPException(status_code=404, detail="Transacción no encontrada")
+    
+    if transaction["status"] != "pending":
+        raise HTTPException(status_code=400, detail="La transacción ya ha sido procesada")
+    
+    # Update transaction status
+    await db.transactions.update_one(
+        {"id": transaction_id},
+        {"$set": {"status": "completed"}}
     )
     
-    if result.matched_count == 0:
-        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    # Update user balance
+    await db.users.update_one(
+        {"id": transaction["user_id"]},
+        {"$inc": {"balance": transaction["amount"]}}
+    )
     
-    user = await db.users.find_one({"id": user_id})
+    # Get user info
+    user = await db.users.find_one({"id": transaction["user_id"]})
     
     # Create notification
     await create_notification(
-        title="Balance Actualizado",
-        message=f"El admin ha actualizado el balance de {user['name']} a €{new_balance}",
-        notification_type="balance_update",
-        user_id=user_id,
+        title="Depósito Aprobado",
+        message=f"Se ha aprobado el depósito de €{transaction['amount']} para {user['name']}",
+        notification_type="deposit_approved",
+        user_id=transaction["user_id"],
         data={
-            "new_balance": new_balance,
-            "user_name": user["name"]
+            "amount": transaction["amount"],
+            "transaction_id": transaction_id
         }
     )
     
-    return {"message": "Balance actualizado exitosamente"}
+    return {"message": "Transacción aprobada exitosamente"}
+
+@api_router.put("/admin/transactions/{transaction_id}/reject")
+async def reject_transaction(transaction_id: str, current_user: UserResponse = Depends(get_admin_user)):
+    # Find the transaction
+    transaction = await db.transactions.find_one({"id": transaction_id})
+    if not transaction:
+        raise HTTPException(status_code=404, detail="Transacción no encontrada")
+    
+    if transaction["status"] != "pending":
+        raise HTTPException(status_code=400, detail="La transacción ya ha sido procesada")
+    
+    # Update transaction status
+    await db.transactions.update_one(
+        {"id": transaction_id},
+        {"$set": {"status": "failed"}}
+    )
+    
+    # Get user info
+    user = await db.users.find_one({"id": transaction["user_id"]})
+    
+    # Create notification
+    await create_notification(
+        title="Depósito Rechazado",
+        message=f"Se ha rechazado el depósito de €{transaction['amount']} para {user['name']}",
+        notification_type="deposit_rejected",
+        user_id=transaction["user_id"],
+        data={
+            "amount": transaction["amount"],
+            "transaction_id": transaction_id
+        }
+    )
+    
+    return {"message": "Transacción rechazada"}
+
+# Get crypto prices for dashboard
+@api_router.get("/crypto/prices")
+async def get_crypto_prices():
+    # Simulated crypto prices - in real app you'd fetch from CoinGecko or similar
+    return {
+        "BTC": {
+            "price": 43250.67,
+            "change_24h": 2.34,
+            "symbol": "₿"
+        },
+        "ETH": {
+            "price": 2658.91,
+            "change_24h": -1.23,
+            "symbol": "Ξ"
+        },
+        "USDT": {
+            "price": 1.00,
+            "change_24h": 0.01,
+            "symbol": "₮"
+        },
+        "BNB": {
+            "price": 312.45,
+            "change_24h": 4.56,
+            "symbol": "BNB"
+        },
+        "ADA": {
+            "price": 0.48,
+            "change_24h": -2.1,
+            "symbol": "₳"
+        }
+    }
+
+# Get crypto news
+@api_router.get("/crypto/news")
+async def get_crypto_news():
+    # Simulated news - in real app you'd fetch from news API
+    return [
+        {
+            "id": "1",
+            "title": "Bitcoin alcanza nuevo máximo mensual",
+            "summary": "El precio del Bitcoin supera los $43,000 impulsado por mayor adopción institucional",
+            "date": "2024-01-15T10:30:00Z",
+            "source": "CryptoNews"
+        },
+        {
+            "id": "2", 
+            "title": "Ethereum prepara nueva actualización",
+            "summary": "La red Ethereum planea implementar mejoras de escalabilidad para reducir fees",
+            "date": "2024-01-14T15:45:00Z",
+            "source": "ETH Today"
+        },
+        {
+            "id": "3",
+            "title": "Regulaciones crypto en Europa",
+            "summary": "La UE finaliza el marco regulatorio MiCA para criptomonedas",
+            "date": "2024-01-13T09:15:00Z",
+            "source": "Regulatory Watch"
+        }
+    ]
 
 @api_router.get("/admin/notifications", response_model=List[Notification])
 async def get_notifications(current_user: UserResponse = Depends(get_admin_user)):
