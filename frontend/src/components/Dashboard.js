@@ -213,20 +213,48 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
     }
   };
 
-  const updateUserBalance = async (userId, newBalance) => {
+  const approveTransaction = async (transactionId) => {
     try {
-      await axios.put(`${API}/admin/users/${userId}/balance?new_balance=${newBalance}`, {}, {
+      await axios.put(`${API}/admin/transactions/${transactionId}/approve`, {}, {
         headers: getAuthHeaders()
       });
 
-      showToast('Balance actualizado exitosamente', 'success');
+      showToast('Transacción aprobada exitosamente', 'success');
       await loadAdminData();
-      if (userId === user.id) {
-        await loadCurrentUser();
-      }
     } catch (error) {
-      const errorMessage = error.response?.data?.detail || 'Error al actualizar balance';
+      const errorMessage = error.response?.data?.detail || 'Error al aprobar transacción';
       showToast(errorMessage, 'error');
+    }
+  };
+
+  const rejectTransaction = async (transactionId) => {
+    try {
+      await axios.put(`${API}/admin/transactions/${transactionId}/reject`, {}, {
+        headers: getAuthHeaders()
+      });
+
+      showToast('Transacción rechazada', 'success');
+      await loadAdminData();
+    } catch (error) {
+      const errorMessage = error.response?.data?.detail || 'Error al rechazar transacción';
+      showToast(errorMessage, 'error');
+    }
+  };
+
+  const copyToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast('Dirección copiada al portapapeles', 'success');
+    } catch (error) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      showToast('Dirección copiada al portapapeles', 'success');
     }
   };
 
