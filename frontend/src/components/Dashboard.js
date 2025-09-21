@@ -402,22 +402,22 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
           <div className={`dashboard-section ${activeTab === 'overview' ? 'active' : ''}`}>
             <div className="overview-welcome">
               <div className="welcome-message">
-                <h2>🚀 ¡Bienvenido de vuelta, {user.name}!</h2>
+                <h2><span className="welcome-icon">🚀</span> ¡Bienvenido de vuelta, {user.name}!</h2>
                 <p>Tu centro de comando para trading profesional</p>
               </div>
               <div className="quick-stats">
                 <div className="stat-mini">
-                  <div className="stat-icon">💰</div>
+                  <div className="stat-icon"><WalletIcon size="xl" className="success" /></div>
                   <div className="stat-content">
                     <div className="stat-label">Balance</div>
                     <div className="stat-value">{formatBalance(user.balance)}</div>
                   </div>
                 </div>
                 <div className="stat-mini">
-                  <div className="stat-icon">📊</div>
+                  <div className="stat-icon"><CheckCircleIcon size="xl" className="success" /></div>
                   <div className="stat-content">
                     <div className="stat-label">Estado</div>
-                    <div className="stat-value">🟢 Activo</div>
+                    <div className="stat-value">Activo</div>
                   </div>
                 </div>
               </div>
@@ -425,7 +425,7 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
 
             <div className="trading-section-enhanced">
               <div className="section-header">
-                <h2>⚡ Trading en Tiempo Real</h2>
+                <h2><BoltIcon size="lg" /> Trading en Tiempo Real</h2>
                 <div className="live-indicator">
                   <span className="pulse-dot"></span>
                   EN VIVO
