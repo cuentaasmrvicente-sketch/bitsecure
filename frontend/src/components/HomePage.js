@@ -74,15 +74,26 @@ const HomePage = ({ user, getAuthHeaders }) => {
               <h1>¡Bienvenido, {user.name}! 👋</h1>
               <p>Tu centro de comando para trading de criptomonedas</p>
             </div>
-            <div className="balance-display">
-              <div className="balance-label">Balance Total</div>
-              <div className="balance-amount">{formatBalance(user.balance)}</div>
-              <div className="balance-actions">
-                <Link to="/dashboard?tab=deposits" className="btn btn-primary btn-sm">
-                  💰 Depositar
-                </Link>
-                <Link to="/dashboard?tab=withdrawals" className="btn btn-outline btn-sm">
-                  💸 Retirar
+            <div className="welcome-actions">
+              <div className="balance-display">
+                <div className="balance-label">Balance Total</div>
+                <div className="balance-amount">{formatBalance(user.balance)}</div>
+                <div className="balance-actions">
+                  <Link to="/dashboard?tab=deposits" className="btn btn-primary btn-sm">
+                    💰 Depositar
+                  </Link>
+                  <Link to="/dashboard?tab=withdrawals" className="btn btn-outline btn-sm">
+                    💸 Retirar
+                  </Link>
+                </div>
+              </div>
+              <div className="control-panel-access">
+                <Link to="/dashboard" className="btn btn-control-panel">
+                  <div className="control-panel-icon">🎛️</div>
+                  <div className="control-panel-text">
+                    <div className="control-panel-title">Panel de Control</div>
+                    <div className="control-panel-subtitle">Acceso completo</div>
+                  </div>
                 </Link>
               </div>
             </div>
