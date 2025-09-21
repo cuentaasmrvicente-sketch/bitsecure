@@ -121,14 +121,25 @@ function App() {
           <Route 
             path="/" 
             element={
-              user ? <Navigate to="/dashboard" /> : <LandingPage />
+              user ? <Navigate to="/home" /> : <LandingPage />
             } 
           />
           <Route 
             path="/auth" 
             element={
-              user ? <Navigate to="/dashboard" /> : 
+              user ? <Navigate to="/home" /> : 
               <AuthPage login={login} register={register} />
+            } 
+          />
+          <Route 
+            path="/home" 
+            element={
+              user ? 
+              <HomePage 
+                user={user}
+                getAuthHeaders={getAuthHeaders}
+              /> : 
+              <Navigate to="/auth" />
             } 
           />
           <Route 
