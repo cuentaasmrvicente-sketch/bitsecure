@@ -9,10 +9,16 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
   const [transactions, setTransactions] = useState([]);
   const [allTransactions, setAllTransactions] = useState([]);
   const [notifications, setNotifications] = useState([]);
+  const [notificationsExpanded, setNotificationsExpanded] = useState(false);
   const [adminStats, setAdminStats] = useState({ total_users: 0, total_balance: 0 });
   const [allUsers, setAllUsers] = useState([]);
   const [walletAddresses, setWalletAddresses] = useState({});
   const [loading, setLoading] = useState(false);
+  const [messageForm, setMessageForm] = useState({
+    to_user_id: '',
+    subject: '',
+    content: ''
+  });
 
   // Form states (updated)
   const [depositForm, setDepositForm] = useState({
