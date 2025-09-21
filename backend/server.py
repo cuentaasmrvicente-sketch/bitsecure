@@ -112,6 +112,20 @@ class Notification(BaseModel):
     read: bool = False
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
+class Message(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    from_admin: bool = True
+    to_user_id: str
+    subject: str
+    content: str
+    read: bool = False
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class MessageCreate(BaseModel):
+    to_user_id: str
+    subject: str
+    content: str
+
 class TradingData(BaseModel):
     pairs: List[dict]
     last_updated: datetime
