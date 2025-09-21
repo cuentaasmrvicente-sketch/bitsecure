@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
@@ -7,20 +7,21 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
   const [activeTab, setActiveTab] = useState('overview');
   const [tradingData, setTradingData] = useState([]);
   const [transactions, setTransactions] = useState([]);
+  const [allTransactions, setAllTransactions] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const [adminStats, setAdminStats] = useState({ total_users: 0, total_balance: 0 });
   const [allUsers, setAllUsers] = useState([]);
   const [walletAddresses, setWalletAddresses] = useState({});
   const [loading, setLoading] = useState(false);
 
-  // Form states
+  // Form states (updated)
   const [depositForm, setDepositForm] = useState({
     crypto: '',
-    wallet_address: '',
     amount: ''
   });
   const [voucherForm, setVoucherForm] = useState({
-    voucher_code: ''
+    voucher_code: '',
+    amount: ''
   });
   const [withdrawalForm, setWithdrawalForm] = useState({
     method: '',
