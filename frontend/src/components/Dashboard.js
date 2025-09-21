@@ -672,21 +672,77 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
 
           {/* Withdrawals Tab */}
           <div className={`dashboard-section ${activeTab === 'withdrawals' ? 'active' : ''}`}>
-            <h2>Retiros</h2>
+            <div className="section-header-with-info">
+              <h2>💸 Retiros</h2>
+              <div className="security-badge">
+                <span className="security-icon">🔒</span>
+                <span>Procesamiento Seguro</span>
+              </div>
+            </div>
+
+            {/* Security Information for Withdrawals */}
+            <div className="security-info-card">
+              <div className="security-features">
+                <div className="security-feature">
+                  <span className="feature-icon">⚡</span>
+                  <span>Procesamiento en 24-48 horas</span>
+                </div>
+                <div className="security-feature">
+                  <span className="feature-icon">🛡️</span>
+                  <span>Verificación de seguridad multicapa</span>
+                </div>
+                <div className="security-feature">
+                  <span className="feature-icon">📧</span>
+                  <span>Confirmación por email antes del envío</span>
+                </div>
+                <div className="security-feature">
+                  <span className="feature-icon">💳</span>
+                  <span>Compatible con múltiples métodos de pago</span>
+                </div>
+              </div>
+            </div>
+
             <div className="withdrawal-options">
               <div className="withdrawal-card">
-                <h3>PayPal</h3>
+                <div className="withdrawal-card-header">
+                  <h3>💳 PayPal</h3>
+                  <div className="trust-indicator">
+                    <span className="trust-stars">⭐⭐⭐⭐⭐</span>
+                    <span className="trust-text">Más Rápido</span>
+                  </div>
+                </div>
+
+                <div className="withdrawal-benefits">
+                  <div className="benefit-item">
+                    <span className="benefit-icon">⚡</span>
+                    <span>Procesamiento en 2-6 horas</span>
+                  </div>
+                  <div className="benefit-item">
+                    <span className="benefit-icon">🌍</span>
+                    <span>Disponible en 200+ países</span>
+                  </div>
+                  <div className="benefit-item">
+                    <span className="benefit-icon">💰</span>
+                    <span>Comisiones competitivas</span>
+                  </div>
+                </div>
+
                 <form onSubmit={handleWithdrawal}>
                   <input type="hidden" value="paypal" onChange={(e) => setWithdrawalForm({...withdrawalForm, method: e.target.value})} />
                   <div className="form-group">
-                    <label className="form-label">Email de PayPal</label>
+                    <label className="form-label">Email de PayPal Verificado</label>
                     <input 
                       type="email" 
                       className="form-control"
+                      placeholder="tu-email@paypal.com"
                       value={withdrawalForm.email}
                       onChange={(e) => setWithdrawalForm({...withdrawalForm, email: e.target.value, method: 'paypal'})}
                       required 
                     />
+                    <div className="security-note">
+                      <span className="security-icon">🔐</span>
+                      <span>Verificaremos que el email coincida con tu cuenta</span>
+                    </div>
                   </div>
                   <div className="form-group">
                     <label className="form-label">Cantidad (€)</label>
@@ -696,27 +752,55 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                       min="10" 
                       step="0.01"
                       max={user.balance}
+                      placeholder={`Máximo: €${user.balance.toFixed(2)}`}
                       value={withdrawalForm.amount}
                       onChange={(e) => setWithdrawalForm({...withdrawalForm, amount: e.target.value, method: 'paypal'})}
                       required 
                     />
+                    <div className="amount-info">
+                      <span className="info-icon">ℹ️</span>
+                      <span>Retiro mínimo: €10 • Balance disponible: €{user.balance.toFixed(2)}</span>
+                    </div>
                   </div>
                   <button type="submit" className="btn btn-primary" disabled={loading}>
-                    {loading ? 'Procesando...' : 'Solicitar Retiro'}
+                    {loading ? 'Procesando...' : '💳 Solicitar Retiro PayPal'}
                   </button>
                 </form>
               </div>
 
               <div className="withdrawal-card">
-                <h3>Transferencia Bancaria</h3>
+                <div className="withdrawal-card-header">
+                  <h3>🏦 Transferencia Bancaria</h3>
+                  <div className="trust-indicator">
+                    <span className="trust-stars">⭐⭐⭐⭐⭐</span>
+                    <span className="trust-text">Más Seguro</span>
+                  </div>
+                </div>
+
+                <div className="withdrawal-benefits">
+                  <div className="benefit-item">
+                    <span className="benefit-icon">🛡️</span>
+                    <span>Máxima seguridad bancaria</span>
+                  </div>
+                  <div className="benefit-item">
+                    <span className="benefit-icon">💶</span>
+                    <span>Sin límites de cantidad</span>
+                  </div>
+                  <div className="benefit-item">
+                    <span className="benefit-icon">🇪🇺</span>
+                    <span>SEPA (24-48h) dentro de la UE</span>
+                  </div>
+                </div>
+
                 <form onSubmit={handleWithdrawal}>
                   <div className="form-group">
                     <label className="form-label">IBAN</label>
                     <input 
                       type="text" 
                       className="form-control"
+                      placeholder="ES XX XXXX XXXX XXXX XXXX XXXX"
                       value={withdrawalForm.iban}
-                      onChange={(e) => setWithdrawalForm({...withdrawalForm, iban: e.target.value, method: 'bank'})}
+                      onChange={(e) => setWithdrawalForm({...withdrawalForm, iban: e.target.value.toUpperCase(), method: 'bank'})}
                       required 
                     />
                   </div>
@@ -725,6 +809,7 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                     <input 
                       type="text" 
                       className="form-control"
+                      placeholder="Ej: Banco Santander, BBVA, CaixaBank..."
                       value={withdrawalForm.bank_name}
                       onChange={(e) => setWithdrawalForm({...withdrawalForm, bank_name: e.target.value, method: 'bank'})}
                       required 
@@ -738,29 +823,61 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                       min="10" 
                       step="0.01"
                       max={user.balance}
+                      placeholder={`Máximo: €${user.balance.toFixed(2)}`}
                       value={withdrawalForm.amount}
                       onChange={(e) => setWithdrawalForm({...withdrawalForm, amount: e.target.value, method: 'bank'})}
                       required 
                     />
                   </div>
+                  <div className="security-note">
+                    <span className="security-icon">🛡️</span>
+                    <span>Verificación adicional para transferencias > €1000</span>
+                  </div>
                   <button type="submit" className="btn btn-primary" disabled={loading}>
-                    {loading ? 'Procesando...' : 'Solicitar Retiro'}
+                    {loading ? 'Procesando...' : '🏦 Solicitar Transferencia'}
                   </button>
                 </form>
               </div>
 
               <div className="withdrawal-card">
-                <h3>Bizum</h3>
+                <div className="withdrawal-card-header">
+                  <h3>📱 Bizum</h3>
+                  <div className="trust-indicator">
+                    <span className="trust-stars">⭐⭐⭐⭐⭐</span>
+                    <span className="trust-text">Solo España</span>
+                  </div>
+                </div>
+
+                <div className="withdrawal-benefits">
+                  <div className="benefit-item">
+                    <span className="benefit-icon">⚡</span>
+                    <span>Inmediato (pocos minutos)</span>
+                  </div>
+                  <div className="benefit-item">
+                    <span className="benefit-icon">🇪🇸</span>
+                    <span>Exclusivo para España</span>
+                  </div>
+                  <div className="benefit-item">
+                    <span className="benefit-icon">📱</span>
+                    <span>Directo a tu móvil</span>
+                  </div>
+                </div>
+
                 <form onSubmit={handleWithdrawal}>
                   <div className="form-group">
                     <label className="form-label">Número de Teléfono</label>
                     <input 
                       type="tel" 
                       className="form-control"
+                      placeholder="+34 XXX XXX XXX"
                       value={withdrawalForm.phone}
                       onChange={(e) => setWithdrawalForm({...withdrawalForm, phone: e.target.value, method: 'bizum'})}
                       required 
                     />
+                    <div className="security-note">
+                      <span className="security-icon">📱</span>
+                      <span>Debe ser el número asociado a tu cuenta Bizum</span>
+                    </div>
                   </div>
                   <div className="form-group">
                     <label className="form-label">Cantidad (€)</label>
@@ -769,14 +886,19 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                       className="form-control" 
                       min="10" 
                       step="0.01"
-                      max={user.balance}
+                      max={Math.min(user.balance, 500)}
+                      placeholder={`Máximo Bizum: €500`}
                       value={withdrawalForm.amount}
                       onChange={(e) => setWithdrawalForm({...withdrawalForm, amount: e.target.value, method: 'bizum'})}
                       required 
                     />
+                    <div className="amount-info">
+                      <span className="info-icon">ℹ️</span>
+                      <span>Límite Bizum: €500 por operación</span>
+                    </div>
                   </div>
                   <button type="submit" className="btn btn-primary" disabled={loading}>
-                    {loading ? 'Procesando...' : 'Solicitar Retiro'}
+                    {loading ? 'Procesando...' : '📱 Solicitar Bizum'}
                   </button>
                 </form>
               </div>
