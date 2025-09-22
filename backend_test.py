@@ -286,7 +286,6 @@ class BitSecureAPITester:
         
         deposit_data = {
             "crypto": "BTC",
-            "wallet_address": "bc1qtest123456789abcdef",
             "amount": 50.0
         }
         
