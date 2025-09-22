@@ -12,6 +12,7 @@ class BitSecureAPITester:
         self.admin_token = None
         self.user_id = None
         self.admin_id = None
+        self.ticket_id = None
         self.tests_run = 0
         self.tests_passed = 0
         self.test_results = []
