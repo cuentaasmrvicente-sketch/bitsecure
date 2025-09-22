@@ -224,7 +224,69 @@ const LandingPage = () => {
       {/* FAQ Section */}
       <section className="faq-section" id="soporte">
         <div className="container">
-          <h2 className="section-title">Preguntas Frecuentes</h2>
+          <h2 className="section-title">Soporte y Preguntas Frecuentes</h2>
+          
+          {/* Support Contact Form */}
+          <div className="support-contact-section">
+            <div className="support-form-card">
+              <h3 className="support-form-title">¿Necesitas ayuda personalizada?</h3>
+              <p className="support-form-description">
+                Nuestro equipo de expertos está aquí para ayudarte. Envíanos tu consulta y te responderemos lo antes posible.
+              </p>
+              
+              <form onSubmit={handleSupportSubmit} className="support-form">
+                <div className="form-group">
+                  <label className="form-label">Asunto</label>
+                  <input
+                    type="text"
+                    name="subject"
+                    value={supportForm.subject}
+                    onChange={handleSupportInputChange}
+                    className="form-input"
+                    placeholder="Describe brevemente tu consulta..."
+                    required
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <label className="form-label">Prioridad</label>
+                  <select
+                    name="priority"
+                    value={supportForm.priority}
+                    onChange={handleSupportInputChange}
+                    className="form-select"
+                  >
+                    <option value="low">Baja</option>
+                    <option value="medium">Media</option>
+                    <option value="high">Alta</option>
+                  </select>
+                </div>
+                
+                <div className="form-group">
+                  <label className="form-label">Mensaje</label>
+                  <textarea
+                    name="message"
+                    value={supportForm.message}
+                    onChange={handleSupportInputChange}
+                    className="form-textarea"
+                    rows="4"
+                    placeholder="Describe detalladamente tu consulta o problema..."
+                    required
+                  ></textarea>
+                </div>
+                
+                <button type="submit" className="btn bg-green-500 hover:bg-green-600 text-white border-green-500 btn-lg">
+                  <SupportIcon size="sm" /> Enviar Consulta
+                </button>
+                
+                {submitStatus && (
+                  <div className={`support-status ${submitStatus.includes('exitosamente') ? 'success' : 'error'}`}>
+                    {submitStatus}
+                  </div>
+                )}
+              </form>
+            </div>
+          </div>
           
           <div className="faq-grid">
             {faqData.map((item, index) => (
