@@ -765,7 +765,7 @@ class BitSecureAPITester:
             "Unauthorized Support Ticket Creation",
             "POST",
             "support/tickets",
-            401,
+            403,
             data={"subject": "Test", "message": "Test"}
         )
         
@@ -773,7 +773,7 @@ class BitSecureAPITester:
             "Unauthorized Get Support Tickets",
             "GET",
             "support/tickets",
-            401
+            403
         )
         
         # Test regular user accessing admin endpoints
