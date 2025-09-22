@@ -130,7 +130,7 @@ const HomePage = ({ user, getAuthHeaders }) => {
                 </div>
                 <div className="crypto-price">{formatPrice(data.price)}</div>
                 <div className={`crypto-change ${data.change_24h >= 0 ? 'positive' : 'negative'}`}>
-                  {data.change_24h >= 0 ? '📈' : '📉'} {data.change_24h >= 0 ? '+' : ''}{data.change_24h.toFixed(2)}%
+                  {data.change_24h >= 0 ? <TrendUpIcon size="sm" /> : <TrendDownIcon size="sm" />} {data.change_24h >= 0 ? '+' : ''}{data.change_24h.toFixed(2)}%
                 </div>
               </div>
             ))}
