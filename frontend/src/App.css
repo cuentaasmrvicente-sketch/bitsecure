@@ -367,14 +367,17 @@ p {
 }
 
 .btn-primary {
-  background-color: var(--color-primary);
-  color: var(--color-btn-primary-text);
-  border-color: var(--color-primary);
+  background-color: var(--color-primary) !important;
+  color: var(--color-btn-primary-text) !important;
+  border-color: var(--color-primary) !important;
+  /* Force green color */
+  background-color: #22c55e !important;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--color-primary-hover);
-  border-color: var(--color-primary-hover);
+  background-color: var(--color-primary-hover) !important;
+  border-color: var(--color-primary-hover) !important;
+  background-color: #16a34a !important;
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
