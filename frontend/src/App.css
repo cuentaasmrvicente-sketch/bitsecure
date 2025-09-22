@@ -1527,7 +1527,7 @@ p {
 }
 
 .balance-label {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
   margin-bottom: var(--space-8);
   text-transform: uppercase;
@@ -1537,7 +1537,7 @@ p {
 .balance-amount {
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-white);
+  color: var(--color-text);
   margin-bottom: var(--space-16);
 }
 
