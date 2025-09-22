@@ -1,53 +1,53 @@
 :root {
-  /* Primitive Color Tokens - Vibrant & Cheerful Palette */
+  /* High Contrast Color System - Main Palette */
   --color-white: #ffffff;
   --color-black: #000000;
   
   /* Neutral Grays - High Contrast */
-  --color-gray-50: #f8fafc;
-  --color-gray-100: #f1f5f9;
-  --color-gray-200: #e2e8f0;
-  --color-gray-300: #cbd5e1;
-  --color-gray-400: #94a3b8;
-  --color-gray-500: #64748b;
-  --color-gray-600: #475569;
-  --color-gray-700: #334155;
-  --color-gray-800: #1e293b;
-  --color-gray-900: #0f172a;
+  --color-gray-50: #fafafa;   /* Very light background */
+  --color-gray-100: #f4f4f5;  /* Light background */
+  --color-gray-200: #e4e4e7;  /* Border colors */
+  --color-gray-300: #d4d4d8;  /* Subtle borders */
+  --color-gray-400: #a1a1aa;  /* Muted text */
+  --color-gray-500: #71717a;  /* Secondary text */
+  --color-gray-600: #52525b;  /* Main text secondary */
+  --color-gray-700: #3f3f46;  /* Dark text */
+  --color-gray-800: #27272a;  /* Very dark text */
+  --color-gray-900: #18181b;  /* Darkest text */
 
-  /* Primary Brand - Vibrant Purple/Blue */
-  --color-primary-50: #f0f9ff;
-  --color-primary-100: #e0f2fe;
-  --color-primary-400: #38bdf8;
-  --color-primary-500: #0ea5e9;
-  --color-primary-600: #0284c7;
-  --color-primary-700: #0369a1;
-  --color-primary-800: #075985;
+  /* Primary Brand - Bright Blue for Visibility */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;  /* Main primary */
+  --color-primary-600: #2563eb;  /* Primary hover */
+  --color-primary-700: #1d4ed8;  /* Primary active */
+  --color-primary-800: #1e40af;
 
-  /* Success Green - Bright and Happy */
+  /* Success Green - High Contrast */
   --color-success-50: #f0fdf4;
   --color-success-100: #dcfce7;
   --color-success-400: #4ade80;
-  --color-success-500: #22c55e;
+  --color-success-500: #22c55e;  /* Main success */
   --color-success-600: #16a34a;
   --color-success-700: #15803d;
 
-  /* Error Red - Warm but Alert */
+  /* Error Red - High Contrast */
   --color-error-50: #fef2f2;
   --color-error-100: #fee2e2;
   --color-error-400: #f87171;
-  --color-error-500: #ef4444;
+  --color-error-500: #ef4444;    /* Main error */
   --color-error-600: #dc2626;
   --color-error-700: #b91c1c;
 
-  /* Warning Orange - Bright and Energetic */
+  /* Warning Orange - High Contrast */
   --color-warning-50: #fff7ed;
   --color-warning-100: #ffedd5;
   --color-warning-400: #fb923c;
-  --color-warning-500: #f97316;
+  --color-warning-500: #f97316;  /* Main warning */
   --color-warning-600: #ea580c;
 
-  /* Accent Colors - Fun and Vibrant */
+  /* Accent Colors - Vibrant but Readable */
   --color-accent-purple: #8b5cf6;
   --color-accent-pink: #ec4899;
   --color-accent-indigo: #6366f1;
@@ -55,13 +55,13 @@
   --color-accent-yellow: #eab308;
 
   /* RGB versions for opacity control */
-  --color-gray-900-rgb: 15, 23, 42;
-  --color-gray-800-rgb: 30, 41, 59;
-  --color-gray-600-rgb: 71, 85, 105;
-  --color-gray-400-rgb: 148, 163, 184;
-  --color-gray-100-rgb: 241, 245, 249;
-  --color-primary-500-rgb: 14, 165, 233;
-  --color-primary-400-rgb: 56, 189, 248;
+  --color-gray-900-rgb: 24, 24, 27;
+  --color-gray-800-rgb: 39, 39, 42;
+  --color-gray-600-rgb: 82, 82, 91;
+  --color-gray-400-rgb: 161, 161, 170;
+  --color-gray-100-rgb: 244, 244, 245;
+  --color-primary-500-rgb: 59, 130, 246;
+  --color-primary-400-rgb: 96, 165, 250;
   --color-success-500-rgb: 34, 197, 94;
   --color-success-400-rgb: 74, 222, 128;
   --color-error-500-rgb: 239, 68, 68;
@@ -69,25 +69,25 @@
   --color-warning-500-rgb: 249, 115, 22;
   --color-warning-400-rgb: 251, 146, 60;
 
-  /* Background color tokens (Light Mode) */
-  --color-bg-gradient-1: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+  /* Background color tokens */
+  --color-bg-gradient-1: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   --color-bg-gradient-2: linear-gradient(135deg, #22c55e 0%, #10b981 100%);
   --color-bg-gradient-3: linear-gradient(135deg, #f97316 0%, #eab308 100%);
   --color-bg-gradient-4: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
 
-  /* Semantic Color Tokens (Light Mode) */
-  --color-background: var(--color-gray-50);
-  --color-surface: var(--color-white);
-  --color-text: var(--color-gray-900);
-  --color-text-secondary: var(--color-gray-600);
-  --color-text-muted: var(--color-gray-500);
-  --color-primary: var(--color-primary-500);
+  /* Semantic Color Tokens - HIGH CONTRAST */
+  --color-background: var(--color-gray-50);       /* Light background */
+  --color-surface: var(--color-white);            /* White surfaces */
+  --color-text: var(--color-gray-900);            /* Very dark text */
+  --color-text-secondary: var(--color-gray-700);  /* Dark secondary text */
+  --color-text-muted: var(--color-gray-600);      /* Medium gray text */
+  --color-primary: var(--color-primary-500);      /* Bright primary */
   --color-primary-hover: var(--color-primary-600);
   --color-primary-active: var(--color-primary-700);
   --color-secondary: rgba(var(--color-gray-600-rgb), 0.08);
   --color-secondary-hover: rgba(var(--color-gray-600-rgb), 0.12);
   --color-secondary-active: rgba(var(--color-gray-600-rgb), 0.16);
-  --color-border: var(--color-gray-200);
+  --color-border: var(--color-gray-300);          /* Visible borders */
   --color-btn-primary-text: var(--color-white);
   --color-card-border: var(--color-gray-200);
   --color-card-border-inner: var(--color-gray-100);
