@@ -80,7 +80,7 @@ const LandingPage = () => {
               Únete a miles de traders que confían en nuestra plataforma para maximizar sus inversiones en criptomonedas
             </p>
             <div className="hero-buttons">
-              <Link to="/auth?tab=register" className="btn btn-primary btn-lg">
+              <Link to="/auth?tab=register" className="btn bg-green-500 hover:bg-green-600 text-white border-green-500 btn-lg">
                 Empezar Ahora
               </Link>
               <Link to="/auth?tab=login" className="btn btn-outline btn-lg">
