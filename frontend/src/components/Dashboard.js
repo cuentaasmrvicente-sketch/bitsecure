@@ -47,6 +47,7 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
   const [allUsers, setAllUsers] = useState([]);
   const [walletAddresses, setWalletAddresses] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showVoucherInfo, setShowVoucherInfo] = useState(false);
   const [messageForm, setMessageForm] = useState({
     to_user_id: '',
     subject: '',
