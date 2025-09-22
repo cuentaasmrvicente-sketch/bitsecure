@@ -791,6 +791,235 @@ class BitSecureAPITester:
         
         return success1 and success2 and success3
 
+    def test_crypto_balance_system(self):
+        """Test the new crypto balance system implementation"""
+        print("\n💰 Testing Crypto Balance System...")
+        
+        # Step 1: Register a new user and verify crypto_balances initialization
+        test_email = self.generate_test_email()
+        test_data = {
+            "name": "Crypto Balance Test User",
+            "email": test_email,
+            "password": "CryptoTest123!"
+        }
+        
+        success1, response1 = self.run_test(
+            "Crypto Balance - User Registration",
+            "POST",
+            "auth/register",
+            200,
+            data=test_data
+        )
+        
+        if not success1:
+            return False
+        
+        # Verify crypto_balances structure in registration response
+        user_data = response1.get('user', {})
+        crypto_balances = user_data.get('crypto_balances', {})
+        expected_cryptos = ["BTC", "ETH", "USDT", "BNB", "ADA"]
+        
+        crypto_balance_init_success = True
+        for crypto in expected_cryptos:
+            if crypto not in crypto_balances:
+                self.log_test(f"Crypto Balance Init - {crypto} Missing", False, f"{crypto} not found in crypto_balances")
+                crypto_balance_init_success = False
+            elif crypto_balances[crypto] != 0.0:
+                self.log_test(f"Crypto Balance Init - {crypto} Value", False, f"Expected 0.0, got {crypto_balances[crypto]}")
+                crypto_balance_init_success = False
+            else:
+                self.log_test(f"Crypto Balance Init - {crypto}", True)
+        
+        if crypto_balance_init_success:
+            self.log_test("Crypto Balances Initialization", True)
+        
+        # Store tokens for this test user
+        test_token = response1['access_token']
+        test_user_id = response1['user']['id']
+        
+        # Step 2: Create a BTC deposit transaction
+        deposit_data = {
+            "crypto": "BTC",
+            "amount": 100.0
+        }
+        
+        headers = {'Authorization': f'Bearer {test_token}'}
+        success2, response2 = self.run_test(
+            "Crypto Balance - BTC Deposit Creation",
+            "POST",
+            "deposits/crypto",
+            200,
+            data=deposit_data,
+            headers=headers
+        )
+        
+        if not success2:
+            return False
+        
+        transaction_id = response2.get('transaction_id')
+        if not transaction_id:
+            self.log_test("Crypto Balance - Transaction ID", False, "No transaction_id in response")
+            return False
+        
+        # Step 3: Verify user balance before approval (should still be 0)
+        success3, response3 = self.run_test(
+            "Crypto Balance - Pre-Approval Balance Check",
+            "GET",
+            "auth/me",
+            200,
+            headers=headers
+        )
+        
+        if success3:
+            pre_balance = response3.get('balance', -1)
+            pre_crypto_balances = response3.get('crypto_balances', {})
+            
+            if pre_balance == 0.0:
+                self.log_test("Pre-Approval Legacy Balance", True)
+            else:
+                self.log_test("Pre-Approval Legacy Balance", False, f"Expected 0.0, got {pre_balance}")
+            
+            if pre_crypto_balances.get('BTC', -1) == 0.0:
+                self.log_test("Pre-Approval BTC Balance", True)
+            else:
+                self.log_test("Pre-Approval BTC Balance", False, f"Expected 0.0, got {pre_crypto_balances.get('BTC')}")
+        
+        # Step 4: Admin approval of the transaction
+        if not self.admin_token:
+            self.log_test("Crypto Balance - Admin Approval", False, "No admin token available")
+            return False
+        
+        admin_headers = {'Authorization': f'Bearer {self.admin_token}'}
+        success4, response4 = self.run_test(
+            "Crypto Balance - Admin Transaction Approval",
+            "PUT",
+            f"admin/transactions/{transaction_id}/approve",
+            200,
+            headers=admin_headers
+        )
+        
+        if not success4:
+            return False
+        
+        # Verify the approval response includes crypto_type
+        crypto_type = response4.get('crypto_type')
+        if crypto_type == 'BTC':
+            self.log_test("Transaction Approval - Crypto Type Detection", True)
+        else:
+            self.log_test("Transaction Approval - Crypto Type Detection", False, f"Expected 'BTC', got '{crypto_type}'")
+        
+        # Step 5: Verify both legacy balance and crypto-specific balance are updated
+        success5, response5 = self.run_test(
+            "Crypto Balance - Post-Approval Balance Check",
+            "GET",
+            "auth/me",
+            200,
+            headers=headers
+        )
+        
+        if success5:
+            post_balance = response5.get('balance', -1)
+            post_crypto_balances = response5.get('crypto_balances', {})
+            
+            # Check legacy balance
+            if post_balance == 100.0:
+                self.log_test("Post-Approval Legacy Balance", True)
+            else:
+                self.log_test("Post-Approval Legacy Balance", False, f"Expected 100.0, got {post_balance}")
+            
+            # Check BTC-specific balance
+            btc_balance = post_crypto_balances.get('BTC', -1)
+            if btc_balance == 100.0:
+                self.log_test("Post-Approval BTC Balance", True)
+            else:
+                self.log_test("Post-Approval BTC Balance", False, f"Expected 100.0, got {btc_balance}")
+            
+            # Check other crypto balances remain 0
+            other_cryptos = ["ETH", "USDT", "BNB", "ADA"]
+            for crypto in other_cryptos:
+                if post_crypto_balances.get(crypto, -1) == 0.0:
+                    self.log_test(f"Post-Approval {crypto} Balance Unchanged", True)
+                else:
+                    self.log_test(f"Post-Approval {crypto} Balance Unchanged", False, f"Expected 0.0, got {post_crypto_balances.get(crypto)}")
+        
+        # Step 6: Verify UserResponse structure matches expected format
+        if success5:
+            required_fields = ['id', 'name', 'email', 'balance', 'crypto_balances', 'is_admin', 'created_at']
+            missing_fields = [field for field in required_fields if field not in response5]
+            
+            if not missing_fields:
+                self.log_test("UserResponse Structure Complete", True)
+            else:
+                self.log_test("UserResponse Structure Complete", False, f"Missing fields: {missing_fields}")
+            
+            # Verify crypto_balances structure
+            crypto_balances = response5.get('crypto_balances', {})
+            if isinstance(crypto_balances, dict) and all(crypto in crypto_balances for crypto in expected_cryptos):
+                self.log_test("UserResponse Crypto Balances Structure", True)
+            else:
+                self.log_test("UserResponse Crypto Balances Structure", False, "Invalid crypto_balances structure")
+        
+        # Step 7: Test with different crypto (ETH) to ensure system works for all cryptos
+        eth_deposit_data = {
+            "crypto": "ETH",
+            "amount": 50.0
+        }
+        
+        success7, response7 = self.run_test(
+            "Crypto Balance - ETH Deposit Creation",
+            "POST",
+            "deposits/crypto",
+            200,
+            data=eth_deposit_data,
+            headers=headers
+        )
+        
+        if success7:
+            eth_transaction_id = response7.get('transaction_id')
+            if eth_transaction_id:
+                # Approve ETH transaction
+                success8, response8 = self.run_test(
+                    "Crypto Balance - ETH Transaction Approval",
+                    "PUT",
+                    f"admin/transactions/{eth_transaction_id}/approve",
+                    200,
+                    headers=admin_headers
+                )
+                
+                if success8:
+                    # Check final balances
+                    success9, response9 = self.run_test(
+                        "Crypto Balance - Final Multi-Crypto Balance Check",
+                        "GET",
+                        "auth/me",
+                        200,
+                        headers=headers
+                    )
+                    
+                    if success9:
+                        final_balance = response9.get('balance', -1)
+                        final_crypto_balances = response9.get('crypto_balances', {})
+                        
+                        # Should have 150.0 total (100 BTC + 50 ETH)
+                        if final_balance == 150.0:
+                            self.log_test("Final Legacy Balance (Multi-Crypto)", True)
+                        else:
+                            self.log_test("Final Legacy Balance (Multi-Crypto)", False, f"Expected 150.0, got {final_balance}")
+                        
+                        # BTC should still be 100.0
+                        if final_crypto_balances.get('BTC', -1) == 100.0:
+                            self.log_test("Final BTC Balance", True)
+                        else:
+                            self.log_test("Final BTC Balance", False, f"Expected 100.0, got {final_crypto_balances.get('BTC')}")
+                        
+                        # ETH should be 50.0
+                        if final_crypto_balances.get('ETH', -1) == 50.0:
+                            self.log_test("Final ETH Balance", True)
+                        else:
+                            self.log_test("Final ETH Balance", False, f"Expected 50.0, got {final_crypto_balances.get('ETH')}")
+        
+        return success1 and success2 and success3 and success4 and success5
+
     def run_all_tests(self):
         """Run all API tests"""
         print("🚀 Starting BitSecure API Tests")
