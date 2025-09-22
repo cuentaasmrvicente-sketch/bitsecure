@@ -186,7 +186,7 @@ const HomePage = ({ user, getAuthHeaders }) => {
         {/* News Section */}
         <div className="news-section">
           <h2 className="section-title">
-            <span className="section-icon">📰</span>
+            <NewsIcon size="lg" />
             Últimas Noticias Crypto
           </h2>
           <div className="news-grid">
