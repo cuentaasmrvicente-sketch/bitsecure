@@ -6,7 +6,7 @@ import random
 import string
 
 class BitSecureAPITester:
-    def __init__(self, base_url="https://crypto-exchange-68.preview.emergentagent.com/api"):
+    def __init__(self, base_url="https://trade-portal-dev.preview.emergentagent.com/api"):
         self.base_url = base_url
         self.token = None
         self.admin_token = None
