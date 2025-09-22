@@ -208,7 +208,7 @@ const HomePage = ({ user, getAuthHeaders }) => {
         {/* Quick Actions */}
         <div className="quick-actions-section">
           <h2 className="section-title">
-            <span className="section-icon">⚡</span>
+            <BoltIcon size="lg" />
             Acciones Rápidas
           </h2>
           <div className="quick-actions-grid">
