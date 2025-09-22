@@ -1048,6 +1048,10 @@ class BitSecureAPITester:
         # Transaction tests
         self.test_get_transactions()
         
+        # Crypto Balance System Tests (NEW)
+        print("\n💰 Testing Crypto Balance System...")
+        self.test_crypto_balance_system()
+        
         # Support ticket tests
         print("\n🎫 Testing Support Ticket System...")
         self.test_support_ticket_creation()
