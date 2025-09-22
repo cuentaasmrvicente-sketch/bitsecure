@@ -366,29 +366,236 @@ p {
   cursor: not-allowed;
 }
 
-/* Global Dark Theme Override */
-body, html, .App, #root {
-  background-color: hsl(220, 13%, 9%) !important;
-  color: hsl(0, 0%, 95%) !important;
+/* Education Section Styles */
+.education-section {
+  padding: 100px 0;
+  background: var(--color-surface);
 }
 
-/* Force all primary buttons to be green like Oryon's orange */
-.btn-primary,
-button[class*="btn-primary"],
-a[class*="btn-primary"],
-.btn.btn-primary {
-  background-color: #22c55e !important;
-  border-color: #22c55e !important;
-  color: white !important;
+.education-grid {
+  display: grid;
+  gap: var(--space-64);
+  margin-bottom: var(--space-64);
 }
 
-.btn-primary:hover,
-button[class*="btn-primary"]:hover,
-a[class*="btn-primary"]:hover,
-.btn.btn-primary:hover {
-  background-color: #16a34a !important;
-  border-color: #16a34a !important;
-  color: white !important;
+.education-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-48);
+  align-items: center;
+  padding: var(--space-40);
+  background: var(--color-background);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  transition: transform var(--duration-normal) var(--ease-standard);
+}
+
+.education-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.education-card.reverse {
+  grid-template-columns: 1fr 1fr;
+}
+
+.education-card.reverse .education-image {
+  order: 2;
+}
+
+.education-card.reverse .education-content {
+  order: 1;
+}
+
+.education-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.education-image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-standard);
+}
+
+.education-image img.hover-zoom:hover {
+  transform: scale(1.05);
+}
+
+.education-content h3 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-16);
+}
+
+.education-content p {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-24);
+}
+
+.education-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.education-benefits li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  margin-bottom: var(--space-12);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+.education-benefits li:last-child {
+  margin-bottom: 0;
+}
+
+.education-cta {
+  text-align: center;
+  padding: var(--space-48);
+  background: var(--color-bg-gradient-1);
+  border-radius: var(--radius-xl);
+  color: var(--color-white);
+}
+
+.education-cta h3 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-16);
+  color: var(--color-white);
+}
+
+.education-cta p {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-32);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Support Form Styles */
+.support-contact-section {
+  margin-bottom: var(--space-64);
+}
+
+.support-form-card {
+  background: var(--color-surface);
+  padding: var(--space-48);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.support-form-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-16);
+  text-align: center;
+}
+
+.support-form-description {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-bottom: var(--space-32);
+  line-height: var(--line-height-relaxed);
+}
+
+.support-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.form-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  padding: var(--space-16);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.form-textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.support-status {
+  padding: var(--space-16);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+}
+
+.support-status.success {
+  background-color: rgba(var(--color-success-500-rgb), 0.1);
+  color: var(--color-success);
+  border: 1px solid rgba(var(--color-success-500-rgb), 0.3);
+}
+
+.support-status.error {
+  background-color: rgba(var(--color-error-500-rgb), 0.1);
+  color: var(--color-error);
+  border: 1px solid rgba(var(--color-error-500-rgb), 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .education-card {
+    grid-template-columns: 1fr;
+    gap: var(--space-32);
+  }
+  
+  .education-card.reverse {
+    grid-template-columns: 1fr;
+  }
+  
+  .education-card.reverse .education-image,
+  .education-card.reverse .education-content {
+    order: unset;
+  }
+  
+  .education-image img {
+    height: 250px;
+  }
+  
+  .support-form-card {
+    padding: var(--space-32);
+  }
 }
 
 .btn-outline {
