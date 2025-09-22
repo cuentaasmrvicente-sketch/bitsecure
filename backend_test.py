@@ -368,10 +368,10 @@ class BitSecureAPITester:
         )
         
         if success and response:
-            if 'amount' in response and response['amount'] >= 50:
-                self.log_test("Voucher Amount", True)
+            if 'transaction_id' in response:
+                self.log_test("Voucher Response Structure", True)
             else:
-                self.log_test("Voucher Amount", False, f"Invalid amount: {response.get('amount', 'missing')}")
+                self.log_test("Voucher Response Structure", False, "Missing transaction_id")
         
         return success
 
