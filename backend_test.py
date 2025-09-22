@@ -353,7 +353,8 @@ class BitSecureAPITester:
             return False
         
         voucher_data = {
-            "voucher_code": "TEST-VOUCHER-123"
+            "voucher_code": "TEST-VOUCHER-123",
+            "amount": 75.0
         }
         
         headers = {'Authorization': f'Bearer {self.token}'}
