@@ -82,7 +82,8 @@ class UserResponse(BaseModel):
     id: str
     name: str
     email: str
-    balance: float
+    balance: float  # Legacy balance
+    crypto_balances: Dict[str, float]  # New crypto-specific balances
     is_admin: bool
     created_at: datetime
 
