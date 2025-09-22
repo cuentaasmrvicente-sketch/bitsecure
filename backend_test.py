@@ -587,6 +587,209 @@ class BitSecureAPITester:
         
         return success
 
+    def test_support_ticket_creation(self):
+        """Test creating a support ticket"""
+        if not self.token:
+            self.log_test("Support Ticket Creation", False, "No token available")
+            return False
+        
+        ticket_data = {
+            "subject": "Test Support",
+            "message": "Testing support system",
+            "priority": "medium"
+        }
+        
+        headers = {'Authorization': f'Bearer {self.token}'}
+        success, response = self.run_test(
+            "Create Support Ticket",
+            "POST",
+            "support/tickets",
+            200,
+            data=ticket_data,
+            headers=headers
+        )
+        
+        if success and response:
+            if 'ticket_id' in response and 'message' in response:
+                self.ticket_id = response['ticket_id']  # Store for later tests
+                self.log_test("Support Ticket Response Structure", True)
+            else:
+                self.log_test("Support Ticket Response Structure", False, "Missing ticket_id or message")
+        
+        return success
+
+    def test_get_user_support_tickets(self):
+        """Test getting user's support tickets"""
+        if not self.token:
+            self.log_test("Get User Support Tickets", False, "No token available")
+            return False
+        
+        headers = {'Authorization': f'Bearer {self.token}'}
+        success, response = self.run_test(
+            "Get User Support Tickets",
+            "GET",
+            "support/tickets",
+            200,
+            headers=headers
+        )
+        
+        if success and isinstance(response, list):
+            self.log_test("Support Tickets List Format", True)
+            
+            # Check ticket structure if any exist
+            if response:
+                ticket = response[0]
+                required_fields = ['id', 'user_id', 'user_name', 'user_email', 'subject', 'message', 'priority', 'status', 'created_at']
+                missing_fields = [field for field in required_fields if field not in ticket]
+                if missing_fields:
+                    self.log_test("Support Ticket Structure", False, f"Missing fields: {missing_fields}")
+                else:
+                    self.log_test("Support Ticket Structure", True)
+                    
+                # Verify the ticket we created is there
+                if hasattr(self, 'ticket_id') and any(t['id'] == self.ticket_id for t in response):
+                    self.log_test("Created Ticket Found", True)
+                else:
+                    self.log_test("Created Ticket Found", False, "Previously created ticket not found")
+        else:
+            self.log_test("Support Tickets List Format", False, "Response is not a list")
+        
+        return success
+
+    def test_admin_support_tickets(self):
+        """Test admin getting all support tickets"""
+        if not self.admin_token:
+            self.log_test("Admin Support Tickets", False, "No admin token available")
+            return False
+        
+        headers = {'Authorization': f'Bearer {self.admin_token}'}
+        success, response = self.run_test(
+            "Admin Get All Support Tickets",
+            "GET",
+            "admin/support/tickets",
+            200,
+            headers=headers
+        )
+        
+        if success and isinstance(response, list):
+            self.log_test("Admin Support Tickets List", True)
+            
+            # Verify admin can see tickets from all users
+            if response:
+                # Check if we can find our test ticket
+                if hasattr(self, 'ticket_id') and any(t['id'] == self.ticket_id for t in response):
+                    self.log_test("Admin Can See User Tickets", True)
+                else:
+                    self.log_test("Admin Can See User Tickets", False, "Admin cannot see user tickets")
+        else:
+            self.log_test("Admin Support Tickets List", False, "Response is not a list")
+        
+        return success
+
+    def test_update_ticket_status(self):
+        """Test admin updating ticket status"""
+        if not self.admin_token or not hasattr(self, 'ticket_id'):
+            self.log_test("Update Ticket Status", False, "No admin token or ticket ID available")
+            return False
+        
+        headers = {'Authorization': f'Bearer {self.admin_token}'}
+        
+        # Test updating to in_progress
+        success1, response1 = self.run_test(
+            "Update Ticket Status - In Progress",
+            "PUT",
+            f"admin/support/tickets/{self.ticket_id}/status?status=in_progress",
+            200,
+            headers=headers
+        )
+        
+        # Test updating to resolved
+        success2, response2 = self.run_test(
+            "Update Ticket Status - Resolved",
+            "PUT",
+            f"admin/support/tickets/{self.ticket_id}/status?status=resolved",
+            200,
+            headers=headers
+        )
+        
+        # Test invalid status
+        success3, response3 = self.run_test(
+            "Update Ticket Status - Invalid",
+            "PUT",
+            f"admin/support/tickets/{self.ticket_id}/status?status=invalid_status",
+            400,
+            headers=headers
+        )
+        
+        return success1 and success2 and success3
+
+    def test_support_ticket_notifications(self):
+        """Test that support ticket creation generates notifications"""
+        if not self.admin_token:
+            self.log_test("Support Ticket Notifications", False, "No admin token available")
+            return False
+        
+        headers = {'Authorization': f'Bearer {self.admin_token}'}
+        success, response = self.run_test(
+            "Check Support Notifications",
+            "GET",
+            "admin/notifications",
+            200,
+            headers=headers
+        )
+        
+        if success and isinstance(response, list):
+            # Look for support ticket notification
+            support_notifications = [n for n in response if n.get('type') == 'support_ticket']
+            if support_notifications:
+                self.log_test("Support Ticket Notification Created", True)
+                
+                # Check notification structure
+                notification = support_notifications[0]
+                if 'title' in notification and 'message' in notification and 'data' in notification:
+                    self.log_test("Support Notification Structure", True)
+                else:
+                    self.log_test("Support Notification Structure", False, "Missing required fields")
+            else:
+                self.log_test("Support Ticket Notification Created", False, "No support ticket notifications found")
+        else:
+            self.log_test("Support Ticket Notifications", False, "Could not retrieve notifications")
+        
+        return success
+
+    def test_unauthorized_support_access(self):
+        """Test that unauthorized users cannot access support endpoints"""
+        # Test without token
+        success1, response1 = self.run_test(
+            "Unauthorized Support Ticket Creation",
+            "POST",
+            "support/tickets",
+            401,
+            data={"subject": "Test", "message": "Test"}
+        )
+        
+        success2, response2 = self.run_test(
+            "Unauthorized Get Support Tickets",
+            "GET",
+            "support/tickets",
+            401
+        )
+        
+        # Test regular user accessing admin endpoints
+        if self.token and self.admin_token != self.token:
+            headers = {'Authorization': f'Bearer {self.token}'}
+            success3, response3 = self.run_test(
+                "Non-Admin Support Admin Access",
+                "GET",
+                "admin/support/tickets",
+                403,
+                headers=headers
+            )
+        else:
+            success3 = True  # Skip if no regular user token
+        
+        return success1 and success2 and success3
+
     def run_all_tests(self):
         """Run all API tests"""
         print("🚀 Starting BitSecure API Tests")
