@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitSecure - Trading Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-circle">B</div>
+                    <div class="logo-text">
+                        <span class="logo-name">BitSecure</span>
+                        <span class="logo-subtitle">Trading Platform</span>
+                    </div>
+                </div>
+                
+                <nav class="nav" id="mainNav">
+                    <a href="#inicio" class="nav-link">Inicio</a>
+                    <a href="#trading" class="nav-link">Trading</a>
+                    <a href="#depositos" class="nav-link">Depósitos</a>
+                    <a href="#retiros" class="nav-link">Retiros</a>
+                    <a href="#soporte" class="nav-link">Soporte</a>
+                </nav>
+
+                <div class="auth-buttons">
+                    <button class="btn btn-outline auth-btn" id="loginBtn">Iniciar Sesión</button>
+                    <button class="btn btn-primary auth-btn" id="registerBtn">Registrarse</button>
+                    <div class="user-menu hidden" id="userMenu">
+                        <span class="user-name" id="userName"></span>
+                        <button class="btn btn-outline" id="logoutBtn">Cerrar Sesión</button>
+                    </div>
+                </div>
+
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="mainContent">
+        <!-- Landing Page -->
+        <div id="landingPage">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Haz crecer tu capital con gestión profesional</h1>
+                        <p class="hero-description">Únete a miles de traders que confían en nuestra plataforma para maximizar sus inversiones en criptomonedas</p>
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary btn-lg" id="heroRegisterBtn">Empezar Ahora</button>
+                            <button class="btn btn-outline btn-lg" id="heroLoginBtn">Iniciar Sesión</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trading Section -->
+            <section class="trading-section" id="trading">
+                <div class="container">
+                    <h2 class="section-title">Operaciones en Tiempo Real</h2>
+                    <p class="section-subtitle">Seguimiento en vivo de las operaciones más exitosas</p>
+                    
+                    <div class="trading-grid" id="tradingGrid">
+                        <!-- Trading cards will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features-section">
+                <div class="container">
+                    <h2 class="section-title">Todo lo que necesitas para triunfar</h2>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">📈</div>
+                            <h3 class="feature-title">Trading en Vivo</h3>
+                            <p class="feature-description">Copia automática de operaciones profesionales 24/7</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🔍</div>
+                            <h3 class="feature-title">Análisis Avanzado</h3>
+                            <p class="feature-description">Métricas en tiempo real y herramientas de análisis técnico</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🏆</div>
+                            <h3 class="feature-title">Sistema de Rangos</h3>
+                            <p class="feature-description">Sube de nivel y desbloquea beneficios exclusivos</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">💬</div>
+                            <h3 class="feature-title">Soporte Integrado</h3>
+                            <p class="feature-description">Sistema de tickets y chat directo con expertos</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="faq-section">
+                <div class="container">
+                    <h2 class="section-title">Preguntas Frecuentes</h2>
+                    
+                    <div class="faq-grid">
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                <span>¿Por qué elegir BitSecure?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>BitSecure combina tecnología de vanguardia con una interfaz intuitiva, ofreciendo acceso directo a los mercados más dinámicos con herramientas profesionales y soporte personalizado 24/7.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                <span>¿Cómo maximizar mis ganancias?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Utiliza nuestras herramientas de análisis en tiempo real, diversifica tu portafolio, aprovecha las señales de nuestros expertos y mantente informado con nuestros análisis diarios y semanales.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                <span>¿Por qué actuar ahora?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Los mercados no esperan. Cada día que pases es una oportunidad perdida. Además, cuanto antes comiences, antes podrás acceder a rangos superiores con beneficios exclusivos.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                <span>¿Qué soporte ofrecen?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Ofrecemos soporte 24/7 a través de nuestro sistema de tickets integrado, con respuesta prioritaria según tu rango. Los usuarios Gold y Platinum tienen acceso a soporte VIP y gestores personales.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                <span>¿Tengo control total?</span>
+                                <span class="faq-icon">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Tienes control total. Puedes depositar y retirar cuando quieras, monitorear todas tus transacciones en tiempo real y acceder a un historial completo de todas tus operaciones.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-features">
+                        <div class="footer-feature">
+                            <div class="footer-feature-icon">🔒</div>
+                            <h4>Seguridad Avanzada</h4>
+                            <p>Protección de última generación con autentificación multi-factor y encriptación bancaria.</p>
+                        </div>
+                        
+                        <div class="footer-feature">
+                            <div class="footer-feature-icon">⚡</div>
+                            <h4>Retiros Rápidos</h4>
+                            <p>Procesa tus retiros de forma eficiente con tiempos de respuesta optimizados.</p>
+                        </div>
+                        
+                        <div class="footer-feature">
+                            <div class="footer-feature-icon">🕒</div>
+                            <h4>Soporte 24/7</h4>
+                            <p>Equipo de expertos disponible las 24 horas para resolver cualquier consulta.</p>
+                        </div>
+                        
+                        <div class="footer-feature">
+                            <div class="footer-feature-icon">🚀</div>
+                            <h4>Tecnología Cutting-Edge</h4>
+                            <p>Plataforma construida con las últimas tecnologías para máximo rendimiento.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-bottom">
+                        <p>&copy; 2024 BitSecure Trading Platform. Todos los derechos reservados.</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <!-- Auth Page -->
+        <div id="authPage" class="auth-page hidden">
+            <div class="container">
+                <div class="auth-container">
+                    <div class="auth-header">
+                        <div class="logo">
+                            <div class="logo-circle">B</div>
+                            <div class="logo-text">
+                                <span class="logo-name">BitSecure</span>
+                                <span class="logo-subtitle">Trading Platform</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-tab="login">Iniciar Sesión</button>
+                        <button class="auth-tab" data-tab="register">Registrarse</button>
+                    </div>
+                    
+                    <div class="auth-forms">
+                        <!-- Login Form -->
+                        <form id="loginForm" class="auth-form active">
+                            <h2>Iniciar Sesión</h2>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="loginEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="loginPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full-width">Iniciar Sesión</button>
+                        </form>
+                        
+                        <!-- Register Form -->
+                        <form id="registerForm" class="auth-form">
+                            <h2>Registrarse</h2>
+                            <div class="form-group">
+                                <label class="form-label">Nombre Completo</label>
+                                <input type="text" class="form-control" id="registerName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="registerEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="registerPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full-width">Registrarse</button>
+                        </form>
+                    </div>
+                    
+                    <button class="back-btn" id="backToHome">← Volver al Inicio</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboardPage" class="dashboard-page hidden">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h1>Panel de Control</h1>
+                    <div class="balance-card">
+                        <h3>Balance Actual</h3>
+                        <div class="balance-amount" id="userBalance">€0.00</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-nav">
+                    <button class="dashboard-tab active" data-tab="overview">Resumen</button>
+                    <button class="dashboard-tab" data-tab="deposits">Depósitos</button>
+                    <button class="dashboard-tab" data-tab="withdrawals">Retiros</button>
+                    <button class="dashboard-tab" data-tab="history">Historial</button>
+                    <button class="dashboard-tab admin-only hidden" data-tab="admin">Administración</button>
+                </div>
+
+                <div class="dashboard-content">
+                    <!-- Overview Tab -->
+                    <div class="dashboard-section active" id="overview">
+                        <div class="trading-section">
+                            <h2>Trading en Vivo</h2>
+                            <div class="trading-grid" id="dashboardTradingGrid">
+                                <!-- Trading cards will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Deposits Tab -->
+                    <div class="dashboard-section" id="deposits">
+                        <h2>Depósitos</h2>
+                        <div class="deposit-options">
+                            <div class="deposit-card">
+                                <h3>Depósito desde Billetera</h3>
+                                <form id="cryptoDepositForm">
+                                    <div class="form-group">
+                                        <label class="form-label">Criptomoneda</label>
+                                        <select class="form-control" id="cryptoSelect" required>
+                                            <option value="">Seleccionar criptomoneda</option>
+                                            <option value="BTC">Bitcoin (BTC)</option>
+                                            <option value="ETH">Ethereum (ETH)</option>
+                                            <option value="USDT">Tether (USDT)</option>
+                                            <option value="BNB">Binance Coin (BNB)</option>
+                                            <option value="ADA">Cardano (ADA)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Dirección de Billetera</label>
+                                        <input type="text" class="form-control" id="walletAddress" placeholder="Ingresa la dirección de tu billetera" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Cantidad (€)</label>
+                                        <input type="number" class="form-control" id="depositAmount" min="10" step="0.01" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary deposit-btn">
+                                <div class="btn-content">
+                                    <span class="btn-icon">💰</span>
+                                    <span class="btn-text">Realizar Depósito</span>
+                                </div>
+                            </button>
+                                </form>
+                            </div>
+
+                            <div class="deposit-card">
+                                <h3>Depósito con CryptoVoucher</h3>
+                                <form id="voucherDepositForm">
+                                    <div class="form-group">
+                                        <label class="form-label">Código de Voucher</label>
+                                        <input type="text" class="form-control" id="voucherCode" placeholder="Ingresa el código del voucher" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary deposit-btn">
+                                <div class="btn-content">
+                                    <span class="btn-icon">🎫</span>
+                                    <span class="btn-text">Canjear Voucher</span>
+                                </div>
+                            </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Withdrawals Tab -->
+                    <div class="dashboard-section" id="withdrawals">
+                        <h2>Retiros</h2>
+                        <div class="withdrawal-options">
+                            <div class="withdrawal-card">
+                                <h3>PayPal</h3>
+                                <form id="paypalWithdrawalForm">
+                                    <div class="form-group">
+                                        <label class="form-label">Email de PayPal</label>
+                                        <input type="email" class="form-control" id="paypalEmail" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Cantidad (€)</label>
+                                        <input type="number" class="form-control" id="paypalAmount" min="10" step="0.01" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Solicitar Retiro</button>
+                                </form>
+                            </div>
+
+                            <div class="withdrawal-card">
+                                <h3>Transferencia Bancaria</h3>
+                                <form id="bankWithdrawalForm">
+                                    <div class="form-group">
+                                        <label class="form-label">IBAN</label>
+                                        <input type="text" class="form-control" id="bankIban" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Nombre del Banco</label>
+                                        <input type="text" class="form-control" id="bankName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Cantidad (€)</label>
+                                        <input type="number" class="form-control" id="bankAmount" min="10" step="0.01" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Solicitar Retiro</button>
+                                </form>
+                            </div>
+
+                            <div class="withdrawal-card">
+                                <h3>Bizum</h3>
+                                <form id="bizumWithdrawalForm">
+                                    <div class="form-group">
+                                        <label class="form-label">Número de Teléfono</label>
+                                        <input type="tel" class="form-control" id="bizumPhone" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Cantidad (€)</label>
+                                        <input type="number" class="form-control" id="bizumAmount" min="10" step="0.01" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Solicitar Retiro</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- History Tab -->
+                    <div class="dashboard-section" id="history">
+                        <h2>Historial de Transacciones</h2>
+                        <div class="transactions-list" id="transactionsList">
+                            <!-- Transactions will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Admin Tab -->
+                    <div class="dashboard-section admin-only" id="admin">
+                        <h2>Panel de Administración</h2>
+                        <div class="admin-stats">
+                            <div class="stat-card">
+                                <h3>Usuarios Registrados</h3>
+                                <div class="stat-value" id="totalUsers">0</div>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Balance Total</h3>
+                                <div class="stat-value" id="totalBalance">€0.00</div>
+                            </div>
+                        </div>
+                        
+                        <div class="users-management">
+                            <h3>Gestión de Usuarios</h3>
+                            <div class="users-list" id="usersList">
+                                <!-- Users will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
