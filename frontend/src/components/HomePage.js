@@ -198,7 +198,7 @@ const HomePage = ({ user, getAuthHeaders }) => {
                 </div>
                 <p className="news-summary">{article.summary}</p>
                 <div className="news-date">
-                  🕒 {new Date(article.date).toLocaleDateString('es-ES')}
+                  <ClockIcon size="xs" /> {new Date(article.date).toLocaleDateString('es-ES')}
                 </div>
               </div>
             ))}
