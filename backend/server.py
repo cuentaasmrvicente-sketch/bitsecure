@@ -121,6 +121,25 @@ class Message(BaseModel):
     read: bool = False
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
+class SupportTicket(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
+    user_name: str
+    user_email: str
+    subject: str
+    message: str
+    priority: str = "medium"  # low, medium, high
+    status: str = "open"  # open, in_progress, resolved, closed
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: Optional[datetime] = None
+
+class SupportTicketRequest(BaseModel):
+    subject: str
+    message: str
+    priority: str = "medium"
+    read: bool = False
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
 class MessageCreate(BaseModel):
     to_user_id: str
     subject: str
