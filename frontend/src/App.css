@@ -366,20 +366,21 @@ p {
   cursor: not-allowed;
 }
 
-.btn-primary {
-  background-color: var(--color-primary) !important;
-  color: var(--color-btn-primary-text) !important;
-  border-color: var(--color-primary) !important;
-  /* Force green color */
+/* Force green buttons and primary elements */
+.btn-primary,
+button[class*="btn-primary"],
+a[class*="btn-primary"] {
   background-color: #22c55e !important;
+  border-color: #22c55e !important;
+  color: white !important;
 }
 
-.btn-primary:hover:not(:disabled) {
-  background-color: var(--color-primary-hover) !important;
-  border-color: var(--color-primary-hover) !important;
+.btn-primary:hover,
+button[class*="btn-primary"]:hover,
+a[class*="btn-primary"]:hover {
   background-color: #16a34a !important;
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  border-color: #16a34a !important;
+  color: white !important;
 }
 
 .btn-outline {
