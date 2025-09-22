@@ -525,9 +525,9 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
           {/* Deposits Tab */}
           <div className={`dashboard-section ${activeTab === 'deposits' ? 'active' : ''}`}>
             <div className="section-header-with-info">
-              <h2>💰 Depósitos</h2>
+              <h2><MoneyIcon size="lg" /> Depósitos</h2>
               <div className="security-badge">
-                <span className="security-icon">🔒</span>
+                <LockIcon size="sm" />
                 <span>Plataforma 100% Segura</span>
               </div>
             </div>
