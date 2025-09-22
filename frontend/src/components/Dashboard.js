@@ -417,7 +417,7 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
           <div className={`dashboard-section ${activeTab === 'overview' ? 'active' : ''}`}>
             <div className="overview-welcome">
               <div className="welcome-message">
-                <h2><span className="welcome-icon">🚀</span> ¡Bienvenido de vuelta, {user.name}!</h2>
+                <h2><RocketIcon size="lg" /> ¡Bienvenido de vuelta, {user.name}!</h2>
                 <p>Tu centro de comando para trading profesional</p>
               </div>
               <div className="quick-stats">
