@@ -95,10 +95,10 @@ const HomePage = ({ user, getAuthHeaders }) => {
                 <div className="balance-amount">{formatBalance(user.balance)}</div>
                 <div className="balance-actions">
                   <Link to="/dashboard?tab=deposits" className="btn btn-primary btn-sm">
-                    💰 Depositar
+                    <MoneyIcon size="sm" /> Depositar
                   </Link>
                   <Link to="/dashboard?tab=withdrawals" className="btn btn-outline btn-sm">
-                    💸 Retirar
+                    <BankNotesIcon size="sm" /> Retirar
                   </Link>
                 </div>
               </div>
