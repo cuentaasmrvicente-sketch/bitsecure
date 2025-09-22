@@ -96,13 +96,13 @@
   --color-info: var(--color-accent-blue);
   --color-focus-ring: rgba(var(--color-primary-500-rgb), 0.25);
 
-  /* Icon Color - High Contrast */
-  --color-icon: var(--color-primary-600);
-  --color-icon-hover: var(--color-primary-700);
-  --color-icon-secondary: var(--color-gray-600);
-  --color-icon-success: var(--color-success-600);
-  --color-icon-error: var(--color-error-600);
-  --color-icon-warning: var(--color-warning-600);
+  /* Icon Color - Dark Theme with Green */
+  --color-icon: var(--color-primary-400);        /* Bright green for visibility */
+  --color-icon-hover: var(--color-primary-300);  /* Lighter green hover */
+  --color-icon-secondary: var(--color-text-secondary); /* Light gray */
+  --color-icon-success: var(--color-success-400);
+  --color-icon-error: var(--color-error-400);
+  --color-icon-warning: var(--color-warning-400);
 
   /* Common style patterns */
   --focus-ring: 0 0 0 3px var(--color-focus-ring);
