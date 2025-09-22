@@ -119,7 +119,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className="App bg-slate-900 text-white min-h-screen">
         <Header user={user} logout={logout} />
         
         <Routes>
