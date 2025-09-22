@@ -17,7 +17,22 @@ import {
   TicketIcon,
   TrendUpIcon,
   TrendDownIcon,
-  DocumentTextIcon
+  DocumentTextIcon,
+  RocketIcon,
+  GemIcon,
+  MoneyIcon,
+  StarIcon,
+  LockIcon,
+  NewsIcon,
+  BuildingIcon,
+  SmartphoneIcon,
+  TargetIcon,
+  InfoIcon,
+  CopyIcon,
+  CreditCardIcon,
+  SearchIcon,
+  TrophyIcon,
+  ChatIcon
 } from './Icons';
 
 const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
