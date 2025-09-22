@@ -446,11 +446,32 @@ async def approve_transaction(transaction_id: str, current_user: UserResponse = 
         {"$set": {"status": "completed"}}
     )
     
-    # Update user balance
-    await db.users.update_one(
-        {"id": transaction["user_id"]},
-        {"$inc": {"balance": transaction["amount"]}}
-    )
+    # Extract crypto type from transaction method (e.g., "Crypto (BTC)" -> "BTC")
+    crypto_type = None
+    if transaction["method"].startswith("Crypto (") and transaction["method"].endswith(")"):
+        crypto_type = transaction["method"][8:-1]  # Extract crypto from "Crypto (BTC)"
+    elif transaction["method"] == "CryptoVoucher":
+        # For vouchers, we need to determine the crypto type from transaction details or default to USDT
+        crypto_type = "USDT"  # Default for vouchers
+    
+    # Update user balance (both legacy and crypto-specific)
+    if crypto_type and crypto_type in ["BTC", "ETH", "USDT", "BNB", "ADA"]:
+        # Update crypto-specific balance
+        await db.users.update_one(
+            {"id": transaction["user_id"]},
+            {
+                "$inc": {
+                    "balance": transaction["amount"],  # Legacy balance
+                    f"crypto_balances.{crypto_type}": transaction["amount"]  # Crypto-specific balance
+                }
+            }
+        )
+    else:
+        # Fallback to legacy balance only
+        await db.users.update_one(
+            {"id": transaction["user_id"]},
+            {"$inc": {"balance": transaction["amount"]}}
+        )
     
     # Get user info
     user = await db.users.find_one({"id": transaction["user_id"]})
@@ -458,16 +479,17 @@ async def approve_transaction(transaction_id: str, current_user: UserResponse = 
     # Create notification
     await create_notification(
         title="Depósito Aprobado",
-        message=f"Se ha aprobado el depósito de €{transaction['amount']} para {user['name']}",
+        message=f"Se ha aprobado el depósito de €{transaction['amount']} ({crypto_type or 'General'}) para {user['name']}",
         notification_type="deposit_approved",
         user_id=transaction["user_id"],
         data={
             "amount": transaction["amount"],
+            "crypto_type": crypto_type,
             "transaction_id": transaction_id
         }
     )
     
-    return {"message": "Transacción aprobada exitosamente"}
+    return {"message": "Transacción aprobada exitosamente", "crypto_type": crypto_type}
 
 @api_router.put("/admin/transactions/{transaction_id}/reject")
 async def reject_transaction(transaction_id: str, current_user: UserResponse = Depends(get_admin_user)):
