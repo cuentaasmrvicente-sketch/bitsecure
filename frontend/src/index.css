@@ -2,25 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Force dark theme globally */
-* {
-  background-color: hsl(220, 13%, 9%) !important;
-  color: hsl(0, 0%, 95%) !important;
-}
-
-/* Exception for cards and specific elements */
-.trading-card, .card, [class*="card"] {
-  background-color: hsl(220, 13%, 12%) !important;
-  color: hsl(0, 0%, 95%) !important;
-}
-
-/* Force green primary buttons */
-.btn-primary, [class*="btn-primary"] {
-  background-color: #22c55e !important;
-  border-color: #22c55e !important;
-  color: white !important;
-}
-
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
@@ -28,8 +9,6 @@ body {
         "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: hsl(220, 13%, 9%) !important;
-    color: hsl(0, 0%, 95%) !important;
 }
 
 code {
