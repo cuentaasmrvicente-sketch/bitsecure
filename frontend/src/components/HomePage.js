@@ -140,7 +140,7 @@ const HomePage = ({ user, getAuthHeaders }) => {
         {/* Trading Section */}
         <div className="trading-live-section">
           <h2 className="section-title">
-            <span className="section-icon">⚡</span>
+            <BoltIcon size="lg" />
             Trading en Vivo
           </h2>
           <div className="trading-grid">
