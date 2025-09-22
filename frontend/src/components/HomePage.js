@@ -118,7 +118,7 @@ const HomePage = ({ user, getAuthHeaders }) => {
         {/* Crypto Prices Section */}
         <div className="crypto-prices-section">
           <h2 className="section-title">
-            <span className="section-icon">📊</span>
+            <SearchIcon size="lg" />
             Precios en Tiempo Real
           </h2>
           <div className="crypto-grid">
