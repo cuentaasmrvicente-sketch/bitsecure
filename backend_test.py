@@ -332,7 +332,6 @@ class BitSecureAPITester:
         # Test with amount below minimum
         low_amount_data = {
             "crypto": "BTC",
-            "wallet_address": "bc1qtest123456789abcdef",
             "amount": 5.0  # Below €10 minimum
         }
         
