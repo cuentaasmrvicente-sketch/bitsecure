@@ -213,22 +213,22 @@ const HomePage = ({ user, getAuthHeaders }) => {
           </h2>
           <div className="quick-actions-grid">
             <Link to="/dashboard?tab=deposits" className="action-card">
-              <div className="action-icon">💰</div>
+              <div className="action-icon"><MoneyIcon size="3xl" /></div>
               <h3>Realizar Depósito</h3>
               <p>Añade fondos a tu cuenta de forma segura</p>
             </Link>
             <Link to="/dashboard?tab=withdrawals" className="action-card">
-              <div className="action-icon">💸</div>
+              <div className="action-icon"><BankNotesIcon size="3xl" /></div>
               <h3>Solicitar Retiro</h3>
               <p>Retira tus ganancias cuando quieras</p>
             </Link>
             <Link to="/dashboard?tab=history" className="action-card">
-              <div className="action-icon">📋</div>
+              <div className="action-icon"><ClockIcon size="3xl" /></div>
               <h3>Ver Historial</h3>
               <p>Revisa todas tus transacciones</p>
             </Link>
             <Link to="/dashboard?tab=overview" className="action-card">
-              <div className="action-icon">📈</div>
+              <div className="action-icon"><ChartBarIcon size="3xl" /></div>
               <h3>Trading Avanzado</h3>
               <p>Accede al panel completo de trading</p>
             </Link>
