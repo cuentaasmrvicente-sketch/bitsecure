@@ -465,8 +465,8 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                 <div className="stat-mini">
                   <div className="stat-icon"><WalletIcon size="xl" className="success" /></div>
                   <div className="stat-content">
-                    <div className="stat-label">Balance</div>
-                    <div className="stat-value">{formatBalance(user.balance)}</div>
+                    <div className="stat-label">Balance Total</div>
+                    <div className="stat-value">{formatBalance(getTotalBalance())}</div>
                   </div>
                 </div>
                 <div className="stat-mini">
