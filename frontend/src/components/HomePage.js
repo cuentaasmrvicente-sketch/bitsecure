@@ -148,7 +148,7 @@ const HomePage = ({ user, getAuthHeaders }) => {
               <div key={index} className="trading-card">
                 <div className="trading-header">
                   <div className="trading-pair">{pair.pair}</div>
-                  <div className="trading-status">🟢 ACTIVO</div>
+                  <div className="trading-status"><CheckCircleIcon size="xs" /> ACTIVO</div>
                 </div>
                 <div className="trading-stats">
                   <div className="trading-stat">
