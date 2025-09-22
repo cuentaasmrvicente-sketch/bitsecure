@@ -161,7 +161,7 @@ const HomePage = ({ user, getAuthHeaders }) => {
                     <div className="trading-stat-label">Dirección</div>
                     <div className="trading-stat-value">
                       <span className={`trading-direction ${pair.direction.toLowerCase()}`}>
-                        {pair.direction === 'LONG' ? '🚀' : '🔻'} {pair.direction}
+                        {pair.direction === 'LONG' ? <TrendUpIcon size="xs" /> : <TrendDownIcon size="xs" />} {pair.direction}
                       </span>
                     </div>
                   </div>
