@@ -20,7 +20,7 @@ code {
 
 @layer base {
   :root {
-        /* Dark Theme Color System - Oryon Style with Green Accent */
+        /* Force Dark Theme Colors Globally */
         --background: 220 13% 9%;     /* Very dark background like Oryon */
         --foreground: 0 0% 95%;       /* White/light text */
         --card: 220 13% 12%;          /* Slightly lighter dark for cards */
@@ -47,33 +47,23 @@ code {
         --chart-5: 340 75% 55%;       /* Pink */
         --radius: 0.5rem;
     }
-  .dark {
-        /* Same colors for dark mode consistency */
-        --background: 220 13% 9%;     /* Very dark background */
-        --foreground: 0 0% 95%;       /* White/light text */
-        --card: 220 13% 12%;          /* Slightly lighter dark for cards */
-        --card-foreground: 0 0% 95%;  /* White text on cards */
-        --popover: 220 13% 12%;
-        --popover-foreground: 0 0% 95%;
-        --primary: 142 76% 36%;       /* Green primary */
-        --primary-foreground: 0 0% 98%; /* White text on green */
-        --secondary: 220 13% 15%;     /* Dark blue secondary */
-        --secondary-foreground: 0 0% 80%; /* Light gray text */
-        --muted: 220 13% 15%;         /* Dark muted background */
-        --muted-foreground: 0 0% 65%; /* Muted text */
-        --accent: 142 76% 36%;        /* Green accent */
-        --accent-foreground: 0 0% 98%; /* White text on accent */
-        --destructive: 0 72% 51%;     /* Red for errors */
-        --destructive-foreground: 0 0% 98%; /* White text on red */
-        --border: 220 13% 20%;        /* Subtle borders */
-        --input: 220 13% 15%;         /* Dark input backgrounds */
-        --ring: 142 76% 36%;          /* Green focus rings */
-        --chart-1: 142 76% 36%;       /* Green for charts */
-        --chart-2: 200 95% 45%;       /* Blue */
-        --chart-3: 280 65% 60%;       /* Purple */
-        --chart-4: 43 96% 56%;        /* Yellow */
-        --chart-5: 340 75% 55%;       /* Pink */
+
+  * {
+    @apply border-border;
     }
+  
+  html, body {
+    /* Force dark theme colors directly */
+    background-color: hsl(220 13% 9%) !important;
+    color: hsl(0 0% 95%) !important;
+    }
+  
+  /* Apply dark theme colors to common elements */
+  .App {
+    background-color: hsl(220 13% 9%) !important;
+    color: hsl(0 0% 95%) !important;
+    min-height: 100vh;
+  }
 }
 
 
