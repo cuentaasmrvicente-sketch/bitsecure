@@ -104,7 +104,7 @@ const HomePage = ({ user, getAuthHeaders }) => {
               </div>
               <div className="control-panel-access">
                 <Link to="/dashboard" className="btn btn-control-panel">
-                  <div className="control-panel-icon">🎛️</div>
+                  <div className="control-panel-icon"><CogIcon size="3xl" /></div>
                   <div className="control-panel-text">
                     <div className="control-panel-title">Panel de Control</div>
                     <div className="control-panel-subtitle">Acceso completo</div>
