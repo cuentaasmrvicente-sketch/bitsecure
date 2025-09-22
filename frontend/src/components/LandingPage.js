@@ -197,25 +197,25 @@ const LandingPage = () => {
         <div className="container">
           <div className="footer-features">
             <div className="footer-feature">
-              <div className="footer-feature-icon">🔒</div>
+              <div className="footer-feature-icon"><LockIcon size="3xl" /></div>
               <h4>Seguridad Avanzada</h4>
               <p>Protección de última generación con autentificación multi-factor y encriptación bancaria.</p>
             </div>
             
             <div className="footer-feature">
-              <div className="footer-feature-icon">⚡</div>
+              <div className="footer-feature-icon"><BoltIcon size="3xl" /></div>
               <h4>Retiros Rápidos</h4>
               <p>Procesa tus retiros de forma eficiente con tiempos de respuesta optimizados.</p>
             </div>
             
             <div className="footer-feature">
-              <div className="footer-feature-icon">🕒</div>
+              <div className="footer-feature-icon"><ClockIcon size="3xl" /></div>
               <h4>Soporte 24/7</h4>
               <p>Equipo de expertos disponible las 24 horas para resolver cualquier consulta.</p>
             </div>
             
             <div className="footer-feature">
-              <div className="footer-feature-icon">🚀</div>
+              <div className="footer-feature-icon"><RocketIcon size="3xl" /></div>
               <h4>Tecnología Cutting-Edge</h4>
               <p>Plataforma construida con las últimas tecnologías para máximo rendimiento.</p>
             </div>
