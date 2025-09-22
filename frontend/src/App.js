@@ -20,6 +20,11 @@ function App() {
   const [toasts, setToasts] = useState([]);
 
   useEffect(() => {
+    // Apply dark theme on mount
+    document.documentElement.classList.add('dark');
+  }, []);
+
+  useEffect(() => {
     // Check if user is logged in
     const token = localStorage.getItem('token');
     if (token) {
