@@ -178,6 +178,7 @@ class BitSecureAPITester:
                     self.admin_token = self.token
                     self.admin_id = self.user_id
                     self.log_test("First User Admin Status", True)
+                    print(f"   Admin token set: {self.admin_token[:20]}...")
                 else:
                     self.log_test("First User Admin Status", True, "Not first user, admin status correct")
                 
