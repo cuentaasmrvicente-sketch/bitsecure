@@ -652,12 +652,70 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
 
               <div className="deposit-card">
                 <div className="deposit-card-header">
-                  <h3>🎫 Depósito con CryptoVoucher</h3>
+                  <div className="header-main">
+                    <TicketIcon size="lg" /> Depósito con CryptoVoucher
+                    <button 
+                      type="button"
+                      className="info-toggle-btn"
+                      onClick={() => setShowVoucherInfo(!showVoucherInfo)}
+                      title="Información sobre CryptoVouchers"
+                    >
+                      <InfoIcon size="sm" />
+                    </button>
+                  </div>
                   <div className="trust-indicator">
-                    <span className="trust-stars">⭐⭐⭐⭐⭐</span>
+                    <span className="trust-stars"><StarIcon size="sm" /><StarIcon size="sm" /><StarIcon size="sm" /><StarIcon size="sm" /><StarIcon size="sm" /></span>
                     <span className="trust-text">Instantáneo</span>
                   </div>
                 </div>
+
+                {showVoucherInfo && (
+                  <div className="voucher-info-dropdown">
+                    <h4><InfoIcon size="sm" /> ¿Qué son los CryptoVouchers?</h4>
+                    <p>
+                      Los CryptoVouchers son códigos digitales prepagados que te permiten depositar 
+                      fondos de forma instantánea y segura sin necesidad de transferencias bancarias 
+                      o transacciones blockchain.
+                    </p>
+                    
+                    <div className="voucher-benefits">
+                      <div className="benefit-row">
+                        <BoltIcon size="xs" />
+                        <span>Depósito instantáneo - fondos disponibles al momento</span>
+                      </div>
+                      <div className="benefit-row">
+                        <ShieldIcon size="xs" />
+                        <span>100% seguro - sin compartir datos bancarios</span>
+                      </div>
+                      <div className="benefit-row">
+                        <CheckCircleIcon size="xs" />
+                        <span>Válidos por 12 meses desde la compra</span>
+                      </div>
+                      <div className="benefit-row">
+                        <GlobeIcon size="xs" />
+                        <span>Disponibles en tiendas físicas y online</span>
+                      </div>
+                    </div>
+
+                    <div className="voucher-purchase-info">
+                      <h5>¿Dónde comprar CryptoVouchers?</h5>
+                      <p>Puedes adquirir tus códigos de forma segura desde:</p>
+                      <a 
+                        href="https://cryptovoucher.io" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="voucher-purchase-link"
+                      >
+                        <GlobeIcon size="sm" />
+                        Comprar en CryptoVoucher.io
+                        <span className="external-link-icon">↗</span>
+                      </a>
+                      <p className="purchase-note">
+                        <strong>Nota:</strong> Una vez que tengas tu código, simplemente pégalo arriba junto con el monto y tu depósito será procesado instantáneamente.
+                      </p>
+                    </div>
+                  </div>
+                )}
 
                 <div className="deposit-benefits">
                   <div className="benefit-item">
