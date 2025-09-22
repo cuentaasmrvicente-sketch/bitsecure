@@ -389,8 +389,27 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
             <h1>Panel de Control</h1>
           </div>
           <div className="balance-card">
-            <h3>Balance Actual</h3>
-            <div className="balance-amount">{formatBalance(user.balance)}</div>
+            <h3>Balance Total</h3>
+            <div className="balance-amount">{formatBalance(getTotalBalance())}</div>
+            
+            {user.crypto_balances && (
+              <div className="crypto-balances">
+                <h4>Balances por Criptomoneda</h4>
+                <div className="crypto-balance-grid">
+                  {Object.entries(user.crypto_balances).map(([crypto, balance]) => (
+                    <div key={crypto} className="crypto-balance-item">
+                      <div className="crypto-symbol">
+                        <span className="crypto-icon">{getCryptoIcon(crypto)}</span>
+                        <span className="crypto-name">{crypto}</span>
+                      </div>
+                      <div className="crypto-amount">
+                        {balance > 0 ? formatBalance(balance) : '€0.00'}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
