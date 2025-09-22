@@ -1502,7 +1502,7 @@ p {
 .welcome-card {
   background: var(--color-surface);
   color: var(--color-text);
-  border: 1px solid var(--color-card-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: var(--space-40);
   display: flex;
