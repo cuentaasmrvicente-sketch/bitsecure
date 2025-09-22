@@ -673,7 +673,7 @@ p {
 
 .section-subtitle {
   text-align: center;
-  color: var(--color-gray-600);
+  color: var(--color-text-secondary);  /* Changed to darker color */
   margin-bottom: var(--space-48);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-normal);
