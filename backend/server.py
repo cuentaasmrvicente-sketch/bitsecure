@@ -83,7 +83,13 @@ class UserResponse(BaseModel):
     name: str
     email: str
     balance: float  # Legacy balance
-    crypto_balances: Dict[str, float]  # New crypto-specific balances
+    crypto_balances: Dict[str, float] = Field(default_factory=lambda: {
+        "BTC": 0.0,
+        "ETH": 0.0,
+        "USDT": 0.0,
+        "BNB": 0.0,
+        "ADA": 0.0
+    })  # New crypto-specific balances with default
     is_admin: bool
     created_at: datetime
 
