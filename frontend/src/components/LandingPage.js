@@ -52,6 +52,53 @@ const LandingPage = () => {
     setActiveFAQ(activeFAQ === index ? null : index);
   };
 
+  const handleSupportSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!supportForm.subject.trim() || !supportForm.message.trim()) {
+      setSubmitStatus('Por favor completa todos los campos');
+      return;
+    }
+
+    try {
+      setSubmitStatus('Enviando...');
+      
+      // Check if user is logged in
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setSubmitStatus('Debes iniciar sesión para enviar un ticket de soporte');
+        return;
+      }
+
+      const response = await axios.post(`${API}/support/tickets`, supportForm, {
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.data) {
+        setSupportForm({ subject: '', message: '', priority: 'medium' });
+        setSubmitStatus('¡Ticket enviado exitosamente! Te contactaremos pronto.');
+      }
+    } catch (error) {
+      console.error('Error sending support ticket:', error);
+      if (error.response?.status === 401) {
+        setSubmitStatus('Debes iniciar sesión para enviar un ticket de soporte');
+      } else {
+        setSubmitStatus('Error al enviar el ticket. Por favor intenta de nuevo.');
+      }
+    }
+  };
+
+  const handleSupportInputChange = (e) => {
+    const { name, value } = e.target;
+    setSupportForm(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
   const faqData = [
     {
       question: "¿Por qué elegir BitSecure?",
