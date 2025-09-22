@@ -101,3 +101,98 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Necesito probar los nuevos endpoints de soporte que acabo de implementar: SupportTicket y SupportTicketRequest models, y los endpoints POST /api/support/tickets, GET /api/support/tickets, GET /api/admin/support/tickets, PUT /api/admin/support/tickets/{ticket_id}/status"
+
+backend:
+  - task: "Support Ticket Creation Endpoint"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ POST /api/support/tickets endpoint working correctly. Successfully creates tickets with subject='Test Support', message='Testing support system', priority='medium'. Returns proper response with ticket_id and success message. Ticket structure includes all required fields: id, user_id, user_name, user_email, subject, message, priority, status, created_at."
+
+  - task: "User Support Tickets Retrieval"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ GET /api/support/tickets endpoint working correctly. Returns list of user's tickets with proper authentication. Ticket content matches creation request exactly. All required fields present in response structure."
+
+  - task: "Admin Support Tickets Management"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "⚠️ GET /api/admin/support/tickets and PUT /api/admin/support/tickets/{ticket_id}/status endpoints implemented but not fully tested due to lack of admin access in test environment. Security controls working correctly - non-admin users properly denied access with 403 status."
+
+  - task: "Support Ticket Authentication & Security"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ Authentication and security controls working correctly. Unauthenticated requests properly blocked with 403 status. Non-admin users correctly denied access to admin endpoints."
+
+  - task: "Support Ticket Notifications"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "⚠️ Notification creation implemented but not verified due to lack of admin access to check notifications endpoint. Code review shows proper notification creation in create_support_ticket function."
+
+frontend:
+  - task: "Support Ticket UI Integration"
+    implemented: false
+    working: "NA"
+    file: "N/A"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "Frontend integration not tested as per testing agent guidelines - backend testing only."
+
+metadata:
+  created_by: "testing_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Support Ticket Creation Endpoint"
+    - "User Support Tickets Retrieval"
+    - "Admin Support Tickets Management"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+    - agent: "testing"
+      message: "Support ticket endpoints testing completed. Core functionality (POST /api/support/tickets, GET /api/support/tickets) working perfectly with proper authentication, data validation, and response structure. Admin endpoints (GET /api/admin/support/tickets, PUT /api/admin/support/tickets/{ticket_id}/status) are implemented and security controls work correctly, but full functionality not verified due to lack of admin access in test environment. All security controls functioning properly. Notification system implemented but not verified due to admin access limitation."
