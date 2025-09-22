@@ -86,7 +86,7 @@ const HomePage = ({ user, getAuthHeaders }) => {
         <div className="welcome-section">
           <div className="welcome-card">
             <div className="welcome-content">
-              <h1>¡Bienvenido, {user.name}! 👋</h1>
+              <h1>¡Bienvenido, {user.name}! <RocketIcon size="lg" /></h1>
               <p>Tu centro de comando para trading de criptomonedas</p>
             </div>
             <div className="welcome-actions">
