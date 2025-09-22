@@ -32,7 +32,8 @@ import {
   CreditCardIcon,
   SearchIcon,
   TrophyIcon,
-  ChatIcon
+  ChatIcon,
+  GlobeIcon
 } from './Icons';
 
 const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
