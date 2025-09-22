@@ -566,15 +566,15 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
                 
                 <div className="deposit-benefits">
                   <div className="benefit-item">
-                    <span className="benefit-icon">⚡</span>
+                    <BoltIcon size="sm" />
                     <span>Procesamiento rápido (15-30 min)</span>
                   </div>
                   <div className="benefit-item">
-                    <span className="benefit-icon">🎯</span>
+                    <TargetIcon size="sm" />
                     <span>Comisiones bajas del mercado</span>
                   </div>
                   <div className="benefit-item">
-                    <span className="benefit-icon">🔐</span>
+                    <LockIcon size="sm" />
                     <span>Direcciones verificadas y seguras</span>
                   </div>
                 </div>
