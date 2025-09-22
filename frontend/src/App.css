@@ -98,7 +98,7 @@
 
   /* Icon Color - Dark Theme with Green */
   --color-icon: var(--color-primary-400);        /* Bright green for visibility */
-  --color-icon-hover: var(--color-primary-300);  /* Lighter green hover */
+  --color-icon-hover: var(--color-primary-500);  /* Main green hover */
   --color-icon-secondary: var(--color-text-secondary); /* Light gray */
   --color-icon-success: var(--color-success-400);
   --color-icon-error: var(--color-error-400);
