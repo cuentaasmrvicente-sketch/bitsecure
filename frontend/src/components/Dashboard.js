@@ -536,19 +536,19 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
             <div className="security-info-card">
               <div className="security-features">
                 <div className="security-feature">
-                  <span className="feature-icon">🛡️</span>
+                  <ShieldIcon size="sm" />
                   <span>Encriptación SSL de nivel bancario</span>
                 </div>
                 <div className="security-feature">
-                  <span className="feature-icon">✅</span>
+                  <CheckCircleIcon size="sm" />
                   <span>Verificación manual por administrador</span>
                 </div>
                 <div className="security-feature">
-                  <span className="feature-icon">📱</span>
+                  <SmartphoneIcon size="sm" />
                   <span>Notificaciones instantáneas de transacciones</span>
                 </div>
                 <div className="security-feature">
-                  <span className="feature-icon">🏛️</span>
+                  <BuildingIcon size="sm" />
                   <span>Fondos protegidos con sistemas institucionales</span>
                 </div>
               </div>
