@@ -22,6 +22,12 @@ const API = `${BACKEND_URL}/api`;
 const LandingPage = () => {
   const [tradingData, setTradingData] = useState([]);
   const [activeFAQ, setActiveFAQ] = useState(null);
+  const [supportForm, setSupportForm] = useState({
+    subject: '',
+    message: '',
+    priority: 'medium'
+  });
+  const [submitStatus, setSubmitStatus] = useState('');
 
   useEffect(() => {
     // Load trading data
