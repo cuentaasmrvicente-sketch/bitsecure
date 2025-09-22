@@ -358,6 +358,26 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
     return `€${balance.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
 
+  const formatCryptoBalance = (balance, crypto) => {
+    return `${balance.toLocaleString('es-ES', { minimumFractionDigits: 8, maximumFractionDigits: 8 })} ${crypto}`;
+  };
+
+  const getCryptoIcon = (crypto) => {
+    const icons = {
+      'BTC': '₿',
+      'ETH': 'Ξ',
+      'USDT': '₮',
+      'BNB': 'BNB',
+      'ADA': '₳'
+    };
+    return icons[crypto] || crypto;
+  };
+
+  const getTotalBalance = () => {
+    if (!user.crypto_balances) return user.balance;
+    return Object.values(user.crypto_balances).reduce((total, balance) => total + balance, 0);
+  };
+
   return (
     <div className="dashboard-page">
       <div className="container">
