@@ -649,6 +649,83 @@ async def mark_message_read(message_id: str, current_user: UserResponse = Depend
     
     return {"message": "Mensaje marcado como leído"}
 
+# Support ticket endpoints
+@api_router.post("/support/tickets")
+async def create_support_ticket(ticket_data: SupportTicketRequest, current_user: UserResponse = Depends(get_current_user)):
+    """Create a new support ticket"""
+    ticket = SupportTicket(
+        user_id=current_user.id,
+        user_name=current_user.name,
+        user_email=current_user.email,
+        subject=ticket_data.subject,
+        message=ticket_data.message,
+        priority=ticket_data.priority.lower() if ticket_data.priority.lower() in ["low", "medium", "high"] else "medium"
+    )
+    
+    # Save ticket to database
+    await db.support_tickets.insert_one(ticket.dict())
+    
+    # Create notification for admin
+    await create_notification(
+        title="Nuevo Ticket de Soporte",
+        message=f"Usuario {current_user.name} ha creado un ticket: {ticket_data.subject}",
+        notification_type="support_ticket",
+        user_id=current_user.id,
+        data={
+            "ticket_id": ticket.id,
+            "priority": ticket.priority,
+            "subject": ticket_data.subject
+        }
+    )
+    
+    return {
+        "message": "Ticket de soporte creado exitosamente",
+        "ticket_id": ticket.id,
+        "status": "Recibido - Te contactaremos pronto"
+    }
+
+@api_router.get("/support/tickets", response_model=List[SupportTicket])
+async def get_user_support_tickets(current_user: UserResponse = Depends(get_current_user)):
+    """Get all support tickets for the current user"""
+    tickets = await db.support_tickets.find({"user_id": current_user.id}).sort("created_at", -1).to_list(50)
+    return [SupportTicket(**ticket) for ticket in tickets]
+
+@api_router.get("/admin/support/tickets", response_model=List[SupportTicket])
+async def get_all_support_tickets(current_user: UserResponse = Depends(get_admin_user)):
+    """Get all support tickets (admin only)"""
+    tickets = await db.support_tickets.find({}).sort("created_at", -1).to_list(100)
+    return [SupportTicket(**ticket) for ticket in tickets]
+
+@api_router.put("/admin/support/tickets/{ticket_id}/status")
+async def update_ticket_status(ticket_id: str, status: str, current_user: UserResponse = Depends(get_admin_user)):
+    """Update support ticket status (admin only)"""
+    if status not in ["open", "in_progress", "resolved", "closed"]:
+        raise HTTPException(status_code=400, detail="Estado de ticket inválido")
+    
+    result = await db.support_tickets.update_one(
+        {"id": ticket_id},
+        {"$set": {"status": status, "updated_at": datetime.utcnow()}}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Ticket no encontrado")
+    
+    # Get ticket to send notification to user
+    ticket = await db.support_tickets.find_one({"id": ticket_id})
+    if ticket:
+        await create_notification(
+            title="Actualización de Ticket de Soporte",
+            message=f"Tu ticket '{ticket['subject']}' ha sido actualizado a: {status}",
+            notification_type="support_update",
+            user_id=ticket["user_id"],
+            data={
+                "ticket_id": ticket_id,
+                "new_status": status
+            }
+        )
+    
+    return {"message": f"Estado del ticket actualizado a {status}"}
+
 @api_router.get("/admin/messages", response_model=List[Message])
 async def get_all_messages(current_user: UserResponse = Depends(get_admin_user)):
     messages = await db.messages.find({}).sort("created_at", -1).to_list(100)
