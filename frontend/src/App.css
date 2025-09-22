@@ -366,10 +366,17 @@ p {
   cursor: not-allowed;
 }
 
-/* Force green buttons and primary elements */
+/* Global Dark Theme Override */
+body, html, .App, #root {
+  background-color: hsl(220, 13%, 9%) !important;
+  color: hsl(0, 0%, 95%) !important;
+}
+
+/* Force all primary buttons to be green like Oryon's orange */
 .btn-primary,
 button[class*="btn-primary"],
-a[class*="btn-primary"] {
+a[class*="btn-primary"],
+.btn.btn-primary {
   background-color: #22c55e !important;
   border-color: #22c55e !important;
   color: white !important;
@@ -377,7 +384,8 @@ a[class*="btn-primary"] {
 
 .btn-primary:hover,
 button[class*="btn-primary"]:hover,
-a[class*="btn-primary"]:hover {
+a[class*="btn-primary"]:hover,
+.btn.btn-primary:hover {
   background-color: #16a34a !important;
   border-color: #16a34a !important;
   color: white !important;
