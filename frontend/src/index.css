@@ -67,20 +67,3 @@ code {
 }
 
 
-
-@layer base {
-  * {
-    @apply border-border;
-    }
-  body {
-    @apply bg-background text-foreground;
-    /* Force dark theme colors */
-    background-color: hsl(220 13% 9%) !important;
-    color: hsl(0 0% 95%) !important;
-    }
-  
-  /* Force dark theme globally */
-  html {
-    background-color: hsl(220 13% 9%) !important;
-  }
-}
