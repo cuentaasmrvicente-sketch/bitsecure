@@ -166,12 +166,12 @@ class BitSecureAPITester:
                 self.token = response['access_token']
                 self.user_id = response['user']['id']
                 
-                # Check if user got €100 bonus
+                # Check initial balance (should be 0€)
                 user_balance = response['user']['balance']
-                if user_balance == 100.0:
-                    self.log_test("Registration Bonus", True)
+                if user_balance == 0.0:
+                    self.log_test("Initial Balance", True)
                 else:
-                    self.log_test("Registration Bonus", False, f"Expected €100, got €{user_balance}")
+                    self.log_test("Initial Balance", False, f"Expected €0, got €{user_balance}")
                 
                 # Check if first user is admin
                 if response['user']['is_admin']:
