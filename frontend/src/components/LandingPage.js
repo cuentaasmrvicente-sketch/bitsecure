@@ -13,7 +13,10 @@ import {
   ShieldIcon, 
   BankNotesIcon, 
   SupportIcon, 
-  TechIcon 
+  TechIcon,
+  CheckCircleIcon,
+  SmartphoneIcon,
+  BuildingIcon
 } from './Icons';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
