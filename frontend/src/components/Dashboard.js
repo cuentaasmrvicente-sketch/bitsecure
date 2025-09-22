@@ -557,9 +557,9 @@ const Dashboard = ({ user, setUser, showToast, getAuthHeaders, API }) => {
             <div className="deposit-options">
               <div className="deposit-card">
                 <div className="deposit-card-header">
-                  <h3>💎 Depósito desde Billetera</h3>
+                  <h3><GemIcon size="lg" /> Depósito desde Billetera</h3>
                   <div className="trust-indicator">
-                    <span className="trust-stars">⭐⭐⭐⭐⭐</span>
+                    <span className="trust-stars"><StarIcon size="sm" /><StarIcon size="sm" /><StarIcon size="sm" /><StarIcon size="sm" /><StarIcon size="sm" /></span>
                     <span className="trust-text">Más Popular</span>
                   </div>
                 </div>
