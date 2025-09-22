@@ -221,6 +221,124 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Educational Section - How Brokers Work */}
+      <section className="education-section">
+        <div className="container">
+          <h2 className="section-title">¿Cómo Funciona un Broker y Por Qué Es Seguro?</h2>
+          <p className="section-subtitle">
+            Comprende los fundamentos del trading profesional y la seguridad que ofrecemos
+          </p>
+          
+          <div className="education-grid">
+            {/* How Brokers Work */}
+            <div className="education-card">
+              <div className="education-image">
+                <img 
+                  src="https://images.unsplash.com/photo-1716279083176-60af7a63cb03?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwyfHx0cmFkaW5nJTIwYnJva2VyfGVufDB8fHx8MTc1ODUzNzQyNnww&ixlib=rb-4.1.0&q=85"
+                  alt="Análisis profesional de trading"
+                  className="hover-zoom"
+                />
+              </div>
+              <div className="education-content">
+                <h3>¿Qué Hace un Broker?</h3>
+                <p>
+                  Un broker actúa como intermediario entre tú y los mercados financieros. Nosotros 
+                  ejecutamos tus órdenes de compra y venta, proporcionamos análisis en tiempo real, 
+                  y te damos acceso a herramientas profesionales que normalmente solo están disponibles 
+                  para traders institucionales.
+                </p>
+                <ul className="education-benefits">
+                  <li><CheckCircleIcon size="sm" /> Acceso directo a mercados globales</li>
+                  <li><CheckCircleIcon size="sm" /> Herramientas de análisis profesional</li>
+                  <li><CheckCircleIcon size="sm" /> Ejecución instantánea de órdenes</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Mobile Trading */}
+            <div className="education-card reverse">
+              <div className="education-image">
+                <img 
+                  src="https://images.unsplash.com/photo-1716279083223-006db39251e1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwzfHx0cmFkaW5nJTIwYnJva2VyfGVufDB8fHx8MTc1ODUzNzQyNnww&ixlib=rb-4.1.0&q=85"
+                  alt="Trading móvil accesible"
+                  className="hover-zoom"
+                />
+              </div>
+              <div className="education-content">
+                <h3>Trading Desde Cualquier Lugar</h3>
+                <p>
+                  Nuestra plataforma está diseñada para que puedas operar desde cualquier dispositivo. 
+                  Con tecnología de vanguardia, garantizamos que tengas acceso completo a tu cuenta, 
+                  análisis en tiempo real y capacidad de trading las 24 horas del día, 7 días a la semana.
+                </p>
+                <ul className="education-benefits">
+                  <li><SmartphoneIcon size="sm" /> Aplicación móvil intuitiva</li>
+                  <li><ClockIcon size="sm" /> Trading 24/7 disponible</li>
+                  <li><BoltIcon size="sm" /> Notificaciones en tiempo real</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Financial Security */}
+            <div className="education-card">
+              <div className="education-image">
+                <img 
+                  src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwzfHxmaW5hbmNpYWwlMjBzZWN1cml0eXxlbnwwfHx8fDE3NTg1Mzc0MzF8MA&ixlib=rb-4.1.0&q=85"
+                  alt="Transacciones seguras"
+                  className="hover-zoom"
+                />
+              </div>
+              <div className="education-content">
+                <h3>Seguridad en Cada Transacción</h3>
+                <p>
+                  Implementamos múltiples capas de seguridad para proteger tus fondos y datos personales. 
+                  Desde encriptación de nivel bancario hasta auditorías regulares, tu dinero está 
+                  completamente protegido con nosotros.
+                </p>
+                <ul className="education-benefits">
+                  <li><ShieldIcon size="sm" /> Encriptación SSL de 256 bits</li>
+                  <li><LockIcon size="sm" /> Autenticación de dos factores</li>
+                  <li><BuildingIcon size="sm" /> Fondos segregados en bancos tier-1</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Asset Protection */}
+            <div className="education-card reverse">
+              <div className="education-image">
+                <img 
+                  src="https://images.pexels.com/photos/259027/pexels-photo-259027.jpeg"
+                  alt="Protección de activos"
+                  className="hover-zoom"
+                />
+              </div>
+              <div className="education-content">
+                <h3>Protección Total de Activos</h3>
+                <p>
+                  Tus fondos están protegidos por un esquema de compensación de inversores y mantenidos 
+                  en cuentas segregadas. Esto significa que tu dinero está completamente separado de 
+                  los fondos operativos de la empresa, garantizando su seguridad absoluta.
+                </p>
+                <ul className="education-benefits">
+                  <li><BankNotesIcon size="sm" /> Cuentas segregadas</li>
+                  <li><TrophyIcon size="sm" /> Regulación financiera estricta</li>
+                  <li><CheckCircleIcon size="sm" /> Compensación de hasta €85,000</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Call to Action */}
+          <div className="education-cta">
+            <h3>¿Listo para empezar con total seguridad?</h3>
+            <p>Únete a miles de traders que confían en BitSecure para hacer crecer su capital</p>
+            <Link to="/auth?tab=register" className="btn bg-green-500 hover:bg-green-600 text-white border-green-500 btn-lg">
+              <RocketIcon size="sm" /> Comenzar Ahora - Es Gratis
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="faq-section" id="soporte">
         <div className="container">
