@@ -818,6 +818,15 @@ class BitSecureAPITester:
         # Transaction tests
         self.test_get_transactions()
         
+        # Support ticket tests
+        print("\n🎫 Testing Support Ticket System...")
+        self.test_support_ticket_creation()
+        self.test_get_user_support_tickets()
+        self.test_admin_support_tickets()
+        self.test_update_ticket_status()
+        self.test_support_ticket_notifications()
+        self.test_unauthorized_support_access()
+        
         # Admin tests
         self.test_admin_endpoints()
         self.test_non_admin_access()
