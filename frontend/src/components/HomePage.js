@@ -1,6 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { 
+  RocketIcon, 
+  MoneyIcon, 
+  BankNotesIcon, 
+  NewsIcon, 
+  BoltIcon, 
+  SearchIcon, 
+  ChartBarIcon, 
+  TrendUpIcon, 
+  TrendDownIcon, 
+  CheckCircleIcon, 
+  ClockIcon,
+  DashboardIcon,
+  CogIcon
+} from './Icons';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
