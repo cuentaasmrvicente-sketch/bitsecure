@@ -142,25 +142,25 @@ const LandingPage = () => {
           
           <div className="features-grid">
             <div className="feature-card">
-              <div className="feature-icon">📈</div>
+              <div className="feature-icon"><ChartBarIcon size="3xl" /></div>
               <h3 className="feature-title">Trading en Vivo</h3>
               <p className="feature-description">Copia automática de operaciones profesionales 24/7</p>
             </div>
             
             <div className="feature-card">
-              <div className="feature-icon">🔍</div>
+              <div className="feature-icon"><SearchIcon size="3xl" /></div>
               <h3 className="feature-title">Análisis Avanzado</h3>
               <p className="feature-description">Métricas en tiempo real y herramientas de análisis técnico</p>
             </div>
             
             <div className="feature-card">
-              <div className="feature-icon">🏆</div>
+              <div className="feature-icon"><TrophyIcon size="3xl" /></div>
               <h3 className="feature-title">Sistema de Rangos</h3>
               <p className="feature-description">Sube de nivel y desbloquea beneficios exclusivos</p>
             </div>
             
             <div className="feature-card">
-              <div className="feature-icon">💬</div>
+              <div className="feature-icon"><ChatIcon size="3xl" /></div>
               <h3 className="feature-title">Soporte Integrado</h3>
               <p className="feature-description">Sistema de tickets y chat directo con expertos</p>
             </div>
